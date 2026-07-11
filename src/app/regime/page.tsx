@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { initPostHog, posthog } from '@/lib/analytics/posthog';
 import { COHORT_EVENTS } from '@/lib/analytics/events';
+import AnalyzerSection from '@/components/regime/AnalyzerSection';
 
 /**
  * Bearings — /regime EN landing (USD market validation).
@@ -285,6 +286,10 @@ export default function RegimePage() {
             ))}
           </ul>
         </section>
+
+        {/* analyzer (#8) — fully client-side; see AnalyzerSection for the
+            privacy + Option B invariants */}
+        <AnalyzerSection />
 
         {/* methodology */}
         <section className="mt-10 border-l-2 pl-4" style={{ borderColor: ACCENT }}>
