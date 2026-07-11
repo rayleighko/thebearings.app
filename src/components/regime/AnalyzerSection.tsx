@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { posthog } from '@/lib/analytics/posthog';
 import { COHORT_EVENTS } from '@/lib/analytics/events';
 import {
@@ -88,17 +88,16 @@ export default function AnalyzerSection() {
   );
   const weightTotal = filled.reduce((s, r) => s + (parseFloat(r.weight) || 0), 0);
 
-  const positions: PortfolioPosition[] = useMemo(
-    () =>
-      filled
-        .map((r) => ({
-          ticker: normalizeTicker(r.ticker),
-          assetClassId: resolveClass(r) ?? '',
-          weight: parseFloat(r.weight) || 0,
-        }))
-        .filter((p) => p.assetClassId && p.weight > 0),
-    [filled],
-  );
+  // Plain derivation — cheap enough that memoization is unnecessary, and the
+  // React Compiler optimizes this automatically (manual useMemo here trips
+  // react-hooks/preserve-manual-memoization).
+  const positions: PortfolioPosition[] = filled
+    .map((r) => ({
+      ticker: normalizeTicker(r.ticker),
+      assetClassId: resolveClass(r) ?? '',
+      weight: parseFloat(r.weight) || 0,
+    }))
+    .filter((p) => p.assetClassId && p.weight > 0);
 
   function handleAnalyze() {
     setError(null);
