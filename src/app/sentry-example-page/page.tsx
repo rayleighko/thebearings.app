@@ -53,7 +53,7 @@ export default function Page() {
           <a
             target="_blank"
             rel="noopener"
-            href="https://elevate-u2.sentry.io/issues/?project=4511442393628672"
+            href="https://thebearingsapp.sentry.io/issues/?project=4511715268952064"
           >
             Issues Page
           </a>
