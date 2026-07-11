@@ -5,19 +5,24 @@ import PostHogProvider from '@/components/analytics/PostHogProvider';
 import ServiceWorkerRegister from '@/components/pwa/ServiceWorkerRegister';
 import { ConditionalFooter } from '@/components/layout/ConditionalFooter';
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Cohort';
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://cohort.co.kr';
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Bearings';
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.thebearings.app';
 
 const baseMetadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
-    default: 'Cohort — 흔들리지 않는 투자 페이스',
-    template: '%s · Cohort',
+    default: 'Bearings — which regime is your portfolio betting on?',
+    template: '%s · Bearings',
   },
   description:
-    'Top 5-10% sophisticated retail을 위한 투자 페이스 메이트 — Aurora 🕊와 Vesper 🦅의 동행. 정보 + 도구 + 의사결정 지원.',
+    'Every portfolio is a forecast. See which economic regime your portfolio is implicitly betting on — stress-tested against 2008, 2020 and 2022. Educational tool, not investment advice.',
   applicationName: APP_NAME,
   manifest: '/site.webmanifest',
+  verification: {
+    other: {
+      'naver-site-verification': 'a135b403617e32909c4c0feb85b0dfc64ac86837',
+    },
+  },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
