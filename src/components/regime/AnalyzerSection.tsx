@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { posthog } from '@/lib/analytics/posthog';
 import { COHORT_EVENTS } from '@/lib/analytics/events';
 import {
@@ -17,6 +17,8 @@ import {
   type PortfolioPosition,
 } from '@/lib/regime/engine';
 import { lookupAssetClass, normalizeTicker } from '@/lib/regime/tickers';
+import { BENCHMARKS, benchmarkResult, matrixPosition } from '@/lib/regime/benchmarks';
+import ResultMatrix from '@/components/regime/ResultMatrix';
 
 /**
  * /regime analyzer (#8) + PMF instrumentation (#9).
@@ -32,8 +34,15 @@ import { lookupAssetClass, normalizeTicker } from '@/lib/regime/tickers';
 const ACCENT = '#A8243F';
 const HAWK = '#E8A33D';
 const REVISIT_KEY = 'bearings.regime.lastCompletedAt';
+const PORTFOLIO_KEY = 'bearings.regime.portfolio'; // this browser only — never uploaded
 const REVISIT_MIN_MS = 60 * 60 * 1000; // 1h — ignore immediate re-runs
 const REVISIT_MAX_MS = 7 * 24 * 60 * 60 * 1000; // 7d window
+
+/** One-tap ticker chips — the most commonly analyzed holdings. */
+const POPULAR_TICKERS = [
+  'VOO', 'QQQ', 'VTI', 'SCHD', 'NVDA', 'AAPL', 'TSLA',
+  'VXUS', 'TLT', 'BND', 'GLD', 'BTC',
+] as const;
 
 interface Row {
   id: number;
@@ -55,9 +64,24 @@ export default function AnalyzerSection() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle');
+  const [benchmarkId, setBenchmarkId] = useState<string | null>(null);
   const startedRef = useRef(false);
   const startedAtRef = useRef<number>(0);
   const nextId = useRef(3);
+
+  // Restore the last portfolio from THIS browser (never uploaded — privacy promise).
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(PORTFOLIO_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as Pick<Row, 'ticker' | 'weight' | 'manualClass'>[];
+      if (!Array.isArray(saved) || saved.length === 0) return;
+      setRows(saved.map((s, i) => ({ id: i + 1, ticker: s.ticker ?? '', weight: s.weight ?? '', manualClass: s.manualClass ?? '' })));
+      nextId.current = saved.length + 1;
+    } catch {
+      /* corrupt saved state — start fresh */
+    }
+  }, []);
 
   function markStarted() {
     if (startedRef.current) return;
@@ -75,6 +99,21 @@ export default function AnalyzerSection() {
 
   function addRow() {
     setRows((rs) => [...rs, emptyRow(nextId.current++)]);
+  }
+
+  /** Quick-add a popular ticker: fill the first empty row, or append one. */
+  function quickAdd(ticker: string) {
+    markStarted();
+    setResult(null);
+    setShareState('idle');
+    setRows((rs) => {
+      if (rs.some((r) => normalizeTicker(r.ticker) === ticker)) return rs;
+      const emptyIdx = rs.findIndex((r) => r.ticker.trim() === '');
+      if (emptyIdx >= 0) {
+        return rs.map((r, i) => (i === emptyIdx ? { ...r, ticker, manualClass: '' } : r));
+      }
+      return [...rs, { ...emptyRow(nextId.current++), ticker }];
+    });
   }
 
   function removeRow(id: number) {
@@ -135,6 +174,12 @@ export default function AnalyzerSection() {
         });
       }
       window.localStorage.setItem(REVISIT_KEY, String(now));
+      // Persist the portfolio locally so a returning visitor picks up where
+      // they left off. Local only — this never leaves the device.
+      window.localStorage.setItem(
+        PORTFOLIO_KEY,
+        JSON.stringify(rows.filter((r) => r.ticker.trim() !== '').map(({ ticker, weight, manualClass }) => ({ ticker, weight, manualClass }))),
+      );
     } catch {
       /* storage unavailable — skip revisit tracking */
     }
@@ -177,8 +222,25 @@ export default function AnalyzerSection() {
         Enter your holdings. The read happens on your device.
       </h2>
 
+      {/* quick add — one-tap popular tickers */}
+      <div className="mt-5">
+        <p className="font-mono text-[11px] tracking-wide text-neutral-600">QUICK ADD</p>
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {POPULAR_TICKERS.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => quickAdd(t)}
+              className="min-h-[36px] rounded-full border border-neutral-800 bg-neutral-900 px-3 font-mono text-xs tracking-wide text-neutral-300 transition-colors hover:border-neutral-600 hover:text-neutral-100"
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* input rows */}
-      <div className="mt-6 space-y-3">
+      <div className="mt-4 space-y-3">
         {rows.map((row) => {
           const unknown =
             row.ticker.trim() !== '' && lookupAssetClass(row.ticker) === null;
@@ -274,6 +336,49 @@ export default function AnalyzerSection() {
       {/* results */}
       {result && (
         <div className="mt-10 space-y-8" role="region" aria-live="polite" aria-label="Analysis result">
+          {/* the map — where this portfolio stands (one-glance read) */}
+          <div className="rounded-lg border border-neutral-800 bg-neutral-900/40 p-5 sm:p-7">
+            <ResultMatrix
+              portfolio={{ ...matrixPosition(result), label: 'You' }}
+              benchmark={
+                benchmarkId
+                  ? (() => {
+                      const br = benchmarkResult(benchmarkId);
+                      const b = BENCHMARKS.find((x) => x.id === benchmarkId);
+                      return br && b ? { ...matrixPosition(br), label: b.label } : null;
+                    })()
+                  : null
+              }
+            />
+            {/* benchmark selector — historical reference, not a suggestion */}
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="font-mono text-[11px] tracking-wide text-neutral-500">
+                COMPARE (REFERENCE ONLY):
+              </span>
+              {BENCHMARKS.map((b) => (
+                <button
+                  key={b.id}
+                  type="button"
+                  aria-pressed={benchmarkId === b.id}
+                  onClick={() => setBenchmarkId(benchmarkId === b.id ? null : b.id)}
+                  className="min-h-[36px] rounded-full border px-3 font-mono text-xs tracking-wide transition-colors"
+                  style={{
+                    borderColor: benchmarkId === b.id ? '#8a8a8f' : '#3a3a3d',
+                    color: benchmarkId === b.id ? '#e5e5e5' : '#8a8a8f',
+                  }}
+                >
+                  {b.label}
+                </button>
+              ))}
+            </div>
+            {benchmarkId && (
+              <p className="mt-2 font-mono text-[10px] leading-relaxed text-neutral-600">
+                {BENCHMARKS.find((b) => b.id === benchmarkId)?.description} Shown as
+                a historical reference point — not a suggestion.
+              </p>
+            )}
+          </div>
+
           {/* headline read */}
           <div className="rounded-lg border border-neutral-800 bg-neutral-900/60 p-5">
             <p className="font-mono text-xs tracking-[0.18em] text-neutral-500">THE READ</p>
@@ -347,29 +452,40 @@ export default function AnalyzerSection() {
               IF YOU HAD HELD THIS MIX
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {result.episodes.map((e) => (
-                <div key={e.episode} className="rounded-lg border border-neutral-800 bg-neutral-900/40 p-4">
-                  <p className="font-mono text-[11px] tracking-wide text-neutral-500">
-                    {EPISODE_META[e.episode].label}
-                  </p>
-                  <p className="mt-1 font-mono text-[10px] text-neutral-600">
-                    {EPISODE_META[e.episode].window}
-                  </p>
-                  <p className="mt-3 text-2xl font-semibold" style={{ color: (e.totalReturn ?? 0) >= 0 ? ACCENT : HAWK }}>
-                    {e.totalReturn === null ? 'n/a' : `${e.totalReturn > 0 ? '+' : ''}${e.totalReturn}%`}
-                  </p>
-                  {e.totalReturn !== null && e.containsEstimates && (
-                    <p className="mt-2 font-mono text-[10px] text-neutral-600">
-                      includes estimated components*
+              {result.episodes.map((e) => {
+                const bench = benchmarkId ? benchmarkResult(benchmarkId) : null;
+                const benchEp = bench?.episodes.find((x) => x.episode === e.episode);
+                const benchLabel = BENCHMARKS.find((b) => b.id === benchmarkId)?.label;
+                return (
+                  <div key={e.episode} className="rounded-lg border border-neutral-800 bg-neutral-900/40 p-4">
+                    <p className="font-mono text-[11px] tracking-wide text-neutral-500">
+                      {EPISODE_META[e.episode].label}
                     </p>
-                  )}
-                  {e.totalReturn === null && (
-                    <p className="mt-2 font-mono text-[10px] text-neutral-600">
-                      insufficient data for this mix
+                    <p className="mt-1 font-mono text-[10px] text-neutral-600">
+                      {EPISODE_META[e.episode].window}
                     </p>
-                  )}
-                </div>
-              ))}
+                    <p className="mt-3 text-2xl font-semibold" style={{ color: (e.totalReturn ?? 0) >= 0 ? ACCENT : HAWK }}>
+                      {e.totalReturn === null ? 'n/a' : `${e.totalReturn > 0 ? '+' : ''}${e.totalReturn}%`}
+                    </p>
+                    {benchEp && benchEp.totalReturn !== null && (
+                      <p className="mt-1 font-mono text-[11px] text-neutral-400">
+                        {benchLabel}: {benchEp.totalReturn > 0 ? '+' : ''}
+                        {benchEp.totalReturn}%
+                      </p>
+                    )}
+                    {e.totalReturn !== null && e.containsEstimates && (
+                      <p className="mt-2 font-mono text-[10px] text-neutral-600">
+                        includes estimated components*
+                      </p>
+                    )}
+                    {e.totalReturn === null && (
+                      <p className="mt-2 font-mono text-[10px] text-neutral-600">
+                        insufficient data for this mix
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 

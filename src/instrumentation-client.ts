@@ -5,7 +5,12 @@
 import * as Sentry from "@sentry/nextjs";
 
 Sentry.init({
-  dsn: "https://b7e5ab48cbc8d5084d92539a72b692a1@o4511442392514560.ingest.us.sentry.io/4511442393628672",
+  // thebearingsapp project DSN — must match sentry.server/edge configs.
+  // (Was the legacy cohort DSN until 2026-07-11 — client errors went to a dead project.)
+  dsn: "https://2c9fd98e5532f30fb97564401b17e3f9@o4511715266723840.ingest.us.sentry.io/4511715268952064",
+
+  // Dev noise + overhead off — Sentry only observes production.
+  enabled: process.env.NODE_ENV === "production",
 
   // Add optional integrations for additional features
   integrations: [Sentry.replayIntegration()],
@@ -16,16 +21,13 @@ Sentry.init({
   enableLogs: true,
 
   // Define how likely Replay events are sampled.
-  // This sets the sample rate to be 10%. You may want this to be 100% while
-  // in development and sample at a lower rate in production
   replaysSessionSampleRate: 0.1,
 
   // Define how likely Replay events are sampled when an error occurs.
   replaysOnErrorSampleRate: 1.0,
 
-  // Enable sending user PII (Personally Identifiable Information)
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true,
+  // Privacy-first product — never send default PII (IP, user info) to Sentry.
+  sendDefaultPii: false,
 });
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
