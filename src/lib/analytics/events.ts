@@ -16,6 +16,14 @@ export const COHORT_EVENTS = {
   REGIME_LANDING_VIEW: 'regime_landing_view',
   REGIME_WAITLIST_SUBMIT: 'regime_waitlist_submit',
 
+  // Bearings — analyzer PMF funnel (#9, docs/master-plan.md §6).
+  // North star = weekly unique REGIME_ANALYSIS_COMPLETED.
+  // Privacy: category-level properties only — never tickers, never weights.
+  REGIME_ANALYSIS_STARTED: 'regime_analysis_started',
+  REGIME_ANALYSIS_COMPLETED: 'regime_analysis_completed',
+  REGIME_RESULT_SHARED: 'regime_result_shared',
+  REGIME_RESULT_REVISITED: 'regime_result_revisited',
+
   // Auth + onboarding
   SIGNUP_START: 'signup_start',
   SIGNUP_COMPLETE: 'signup_complete',
