@@ -374,20 +374,18 @@ export default function AnalyzerSection() {
             </div>
           </div>
 
-          {/* warnings + methodology honesty */}
-          {(result.warnings.length > 0 || true) && (
-            <div className="border-l-2 border-neutral-700 pl-4">
-              {result.warnings.map((w) => (
-                <p key={w} className="text-xs leading-relaxed text-neutral-500">⚠ {w}</p>
-              ))}
-              <p className="mt-2 text-xs leading-relaxed text-neutral-500">
-                *Historical regime averages (1973–2021 academic datasets) and
-                episode measurements; some episode cells are estimates from
-                adjacent data. Past regimes describe the past — they don&apos;t
-                predict the next one. Educational tool, not investment advice.
-              </p>
-            </div>
-          )}
+          {/* warnings + methodology honesty — always shown with results */}
+          <div className="border-l-2 border-neutral-700 pl-4">
+            {result.warnings.map((w) => (
+              <p key={w} className="text-xs leading-relaxed text-neutral-500">⚠ {w}</p>
+            ))}
+            <p className="mt-2 text-xs leading-relaxed text-neutral-500">
+              *Historical regime averages (1973–2021 academic datasets) and
+              episode measurements; some episode cells are estimates from
+              adjacent data. Past regimes describe the past — they don&apos;t
+              predict the next one. Educational tool, not investment advice.
+            </p>
+          </div>
 
           {/* share */}
           <button
