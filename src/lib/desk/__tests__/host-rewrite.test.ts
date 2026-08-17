@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
   DESK_MISSING_PATH,
+  deskCanonicalPath,
   deskRewritePath,
+  goCanonicalPath,
   goRewritePath,
   singleSegmentSlug,
 } from '@/lib/desk/host-rewrite';
@@ -51,5 +53,20 @@ describe('goRewritePath', () => {
 
   it('sends unmatched paths to the go index (nested 404)', () => {
     expect(goRewritePath('/foo/bar')).toBe('/go');
+  });
+});
+
+describe('canonical public paths on desk/go hosts', () => {
+  it('strips /desk prefix', () => {
+    expect(deskCanonicalPath('/desk')).toBe('/');
+    expect(deskCanonicalPath('/desk/dev')).toBe('/dev');
+    expect(deskCanonicalPath('/dev')).toBeNull();
+    expect(deskCanonicalPath('/')).toBeNull();
+  });
+
+  it('strips /go prefix', () => {
+    expect(goCanonicalPath('/go')).toBe('/');
+    expect(goCanonicalPath('/go/arm-nb-f80')).toBe('/arm-nb-f80');
+    expect(goCanonicalPath('/arm-nb-f80')).toBeNull();
   });
 });

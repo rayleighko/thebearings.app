@@ -7,6 +7,7 @@ import {
   isGoHost,
   isPreviewOrLocalHost,
 } from '@/lib/desk/hosts';
+import { deskIndexHref } from '@/lib/desk/urls';
 
 export default async function NotFound() {
   const host = (await headers()).get('host') ?? '';
@@ -14,7 +15,9 @@ export default async function NotFound() {
   if (isDeskOrGoHost(host)) {
     return (
       <DeskNotFound
-        homeHref={isGoHost(host) ? 'https://desk.thebearings.app/' : '/desk'}
+        homeHref={
+          isGoHost(host) ? 'https://desk.thebearings.app/' : deskIndexHref(host)
+        }
         homeLabel="Desk로"
       />
     );
