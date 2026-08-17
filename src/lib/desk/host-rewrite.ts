@@ -46,3 +46,26 @@ export function goRewritePath(pathname: string): string | null {
   if (slug) return `/go/${slug}`;
   return '/go';
 }
+
+/**
+ * On desk.thebearings.app, `/desk` and `/desk/:slug` are internal App Router
+ * paths. Strip the prefix so the public URL is `/` and `/dev`.
+ */
+export function deskCanonicalPath(pathname: string): string | null {
+  if (pathname === '/desk' || pathname === '/desk/') return '/';
+  if (pathname.startsWith('/desk/')) {
+    const rest = pathname.slice('/desk'.length);
+    return rest || '/';
+  }
+  return null;
+}
+
+/** Same for go.thebearings.app `/go/:slug` → `/:slug`. */
+export function goCanonicalPath(pathname: string): string | null {
+  if (pathname === '/go' || pathname === '/go/') return '/';
+  if (pathname.startsWith('/go/')) {
+    const rest = pathname.slice('/go'.length);
+    return rest || '/';
+  }
+  return null;
+}

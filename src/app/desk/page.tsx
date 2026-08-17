@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { AffiliateDisclosure } from '@/components/desk/AffiliateDisclosure';
 import { CONCEPTS, listPublishedConcepts } from '@/data/concepts';
+import { deskConceptHref } from '@/lib/desk/urls';
 
-export default function DeskIndexPage() {
+export default async function DeskIndexPage() {
+  const host = (await headers()).get('host') ?? '';
   const published = listPublishedConcepts();
 
   return (
@@ -21,7 +24,7 @@ export default function DeskIndexPage() {
             <li key={concept.slug}>
               {ready ? (
                 <Link
-                  href={`/desk/${concept.slug}`}
+                  href={deskConceptHref(host, concept.slug)}
                   className="flex min-h-[44px] items-center justify-between rounded-xl border border-cohort-ink-10 bg-white px-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
                 >
                   <span>

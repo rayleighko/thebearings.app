@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { AffiliateDisclosure } from '@/components/desk/AffiliateDisclosure';
 import { DeskScene } from '@/components/desk/DeskScene';
 import { SeoProductList } from '@/components/desk/SeoProductList';
 import { CONCEPTS, getConcept } from '@/data/concepts';
+import { deskIndexHref } from '@/lib/desk/urls';
 
 type PageProps = {
   params: Promise<{ concept: string }>;
@@ -32,13 +34,14 @@ export default async function DeskConceptPage({ params }: PageProps) {
   if (!concept) {
     notFound();
   }
+  const host = (await headers()).get('host') ?? '';
 
   return (
     <main className="mx-auto min-h-screen max-w-3xl break-keep bg-cohort-ivory px-4 py-8 text-cohort-ink-90 sm:px-6">
       <AffiliateDisclosure className="rounded-lg border border-cohort-ink-10 bg-white px-4 py-3 text-cohort-ink-70" />
       <nav className="mt-6">
         <Link
-          href="/desk"
+          href={deskIndexHref(host)}
           className="inline-flex min-h-[44px] items-center text-sm text-cohort-ink-50 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
         >
           모든 컨셉
