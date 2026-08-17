@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest';
 import {
   hostnameFromHostHeader,
   isBearingsPublicHost,
+  isCohortArchiveHost,
   isDeskHost,
   isDeskOrGoHost,
   isGoHost,
+  isPreviewOrLocalHost,
 } from '@/lib/desk/hosts';
 
 describe('desk/go hosts', () => {
@@ -32,5 +34,13 @@ describe('desk/go hosts', () => {
     expect(isBearingsPublicHost('www.thebearings.app')).toBe(true);
     expect(isBearingsPublicHost('desk.thebearings.app')).toBe(false);
     expect(isBearingsPublicHost('go.thebearings.app')).toBe(false);
+  });
+
+  it('treats Vercel preview and localhost as desk validation hosts', () => {
+    expect(isPreviewOrLocalHost('thebearings-app-abc.vercel.app')).toBe(true);
+    expect(isPreviewOrLocalHost('localhost:3000')).toBe(true);
+    expect(isPreviewOrLocalHost('www.thebearings.app')).toBe(false);
+    expect(isCohortArchiveHost('cohort.co.kr')).toBe(true);
+    expect(isCohortArchiveHost('thebearings-app-abc.vercel.app')).toBe(false);
   });
 });

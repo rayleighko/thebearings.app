@@ -8,6 +8,7 @@ import { ConditionalFooter } from '@/components/layout/ConditionalFooter';
 import {
   isBearingsPublicHost,
   isDeskOrGoHost,
+  isPreviewOrLocalHost,
 } from '@/lib/desk/hosts';
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Cohort';
@@ -92,16 +93,17 @@ const deskGoMetadata: Metadata = {
  * 8.0+ App Router pattern.
  *
  * Host branching: desk/go never inherit Cohort title/manifest; apex/www use
- * The Bearings chrome. cohort.co.kr / preview hosts keep the archived Cohort
- * defaults.
+ * The Bearings chrome. Vercel preview + localhost use desk metadata so we
+ * validate the desk surface, not the archived Cohort landing.
  */
 export async function generateMetadata(): Promise<Metadata> {
   const host = (await headers()).get('host') ?? '';
-  const base = isDeskOrGoHost(host)
-    ? deskGoMetadata
-    : isBearingsPublicHost(host)
-      ? bearingsMetadata
-      : cohortMetadata;
+  const base =
+    isDeskOrGoHost(host) || isPreviewOrLocalHost(host)
+      ? deskGoMetadata
+      : isBearingsPublicHost(host)
+        ? bearingsMetadata
+        : cohortMetadata;
 
   return {
     ...base,

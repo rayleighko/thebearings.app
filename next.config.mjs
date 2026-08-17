@@ -47,6 +47,20 @@ const nextConfig = {
         destination: '/regime',
         permanent: false,
       },
+      // Preview + localhost land on /desk. Production www/apex already go to
+      // /regime above. desk/go hosts are rewritten in middleware. cohort.co.kr
+      // keeps the archived Korean landing.
+      {
+        source: '/',
+        destination: '/desk',
+        permanent: false,
+        missing: [
+          { type: 'host', value: '(www\\.)?thebearings\\.app' },
+          { type: 'host', value: 'desk\\.thebearings\\.app' },
+          { type: 'host', value: 'go\\.thebearings\\.app' },
+          { type: 'host', value: '(www\\.)?cohort\\.co\\.kr' },
+        ],
+      },
     ];
   },
   async headers() {

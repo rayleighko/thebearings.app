@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { DeskNotFound } from '@/components/desk/DeskNotFound';
-import { isBearingsPublicHost, isDeskOrGoHost, isGoHost } from '@/lib/desk/hosts';
+import {
+  isBearingsPublicHost,
+  isDeskOrGoHost,
+  isGoHost,
+  isPreviewOrLocalHost,
+} from '@/lib/desk/hosts';
 
 export default async function NotFound() {
   const host = (await headers()).get('host') ?? '';
@@ -15,7 +20,12 @@ export default async function NotFound() {
     );
   }
 
-  const homeHref = isBearingsPublicHost(host) ? '/regime' : '/';
+  const homeHref =
+    isBearingsPublicHost(host)
+      ? '/regime'
+      : isPreviewOrLocalHost(host)
+        ? '/desk'
+        : '/';
 
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-6 py-16 text-center">
