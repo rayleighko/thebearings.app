@@ -10,6 +10,8 @@
  *   Day 5b renders Version C regardless).
  */
 import { NextResponse, type NextRequest } from 'next/server';
+import { isDeskHost, isGoHost } from '@/lib/desk/hosts';
+import { deskRewritePath, goRewritePath } from '@/lib/desk/host-rewrite';
 import { updateSession } from '@/lib/supabase/middleware';
 
 const AB_COOKIE = 'cohort-ab-variant';
@@ -47,7 +49,24 @@ function redirectWithCookies(url: URL, from: NextResponse): NextResponse {
   return redirect;
 }
 
+function rewriteToPath(request: NextRequest, pathname: string | null): NextResponse {
+  if (!pathname) return NextResponse.next();
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  return NextResponse.rewrite(url);
+}
+
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get('host') ?? '';
+
+  // desk / go hosts skip Cohort auth + session refresh.
+  if (isDeskHost(host)) {
+    return rewriteToPath(request, deskRewritePath(request.nextUrl.pathname));
+  }
+  if (isGoHost(host)) {
+    return rewriteToPath(request, goRewritePath(request.nextUrl.pathname));
+  }
+
   const { response, user } = await updateSession(request);
   const { pathname } = request.nextUrl;
 
