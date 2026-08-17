@@ -28,6 +28,8 @@ const HIDE_FOOTER_PREFIXES = [
   '/shape-b',
   '/shape-c',
   '/regime',
+  '/desk',
+  '/go',
 ];
 
 export function ConditionalFooter() {

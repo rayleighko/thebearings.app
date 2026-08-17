@@ -1,5 +1,10 @@
 import Link from 'next/link';
 
+/**
+ * Public-route footer. Cohort marketing chrome (Aurora Chat, dashboard) is
+ * archived — this surface is The Bearings. /regime hides this footer and
+ * renders its own EN disclaimer.
+ */
 export function Footer() {
   return (
     <footer
@@ -9,14 +14,16 @@ export function Footer() {
       <div className="mx-auto max-w-5xl px-4 py-8 md:py-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_2fr]">
           <div>
-            <div className="text-xl font-semibold text-cohort-primary">Cohort</div>
+            <div className="text-xl font-semibold text-cohort-charcoal">
+              The Bearings
+            </div>
             <p className="mt-2 break-keep text-sm text-cohort-ink-50">
-              지수 종목·매크로를 같은 페이스로 동행하는 cohort.
+              포트폴리오 레짐과 데스크 제품 페이지.
             </p>
           </div>
 
           <nav
-            className="grid grid-cols-3 gap-4 text-sm"
+            className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3"
             aria-label="푸터 네비게이션"
           >
             <div>
@@ -24,39 +31,31 @@ export function Footer() {
               <ul className="space-y-1.5 text-cohort-ink-70">
                 <li>
                   <Link
-                    href="/dashboard"
-                    className="transition-colors hover:text-cohort-primary"
+                    href="/regime"
+                    className="transition-colors hover:text-cohort-charcoal"
                   >
-                    대시보드
+                    Regime
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/chat"
-                    className="transition-colors hover:text-cohort-primary"
+                    href="/waitlist"
+                    className="transition-colors hover:text-cohort-charcoal"
                   >
-                    Aurora 채팅
+                    Waitlist
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="mb-2 font-medium text-cohort-ink-90">프로젝트</h3>
+              <h3 className="mb-2 font-medium text-cohort-ink-90">문의</h3>
               <ul className="space-y-1.5 text-cohort-ink-70">
-                <li>
-                  <Link
-                    href="/"
-                    className="transition-colors hover:text-cohort-primary"
-                  >
-                    소개
-                  </Link>
-                </li>
                 <li>
                   <a
                     href="mailto:gmj1197@gmail.com"
-                    className="transition-colors hover:text-cohort-primary"
+                    className="transition-colors hover:text-cohort-charcoal"
                   >
-                    문의
+                    이메일
                   </a>
                 </li>
               </ul>
@@ -67,7 +66,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/privacy"
-                    className="transition-colors hover:text-cohort-primary"
+                    className="transition-colors hover:text-cohort-charcoal"
                   >
                     개인정보처리방침
                   </Link>
@@ -75,7 +74,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/terms"
-                    className="transition-colors hover:text-cohort-primary"
+                    className="transition-colors hover:text-cohort-charcoal"
                   >
                     이용약관
                   </Link>
@@ -85,22 +84,17 @@ export function Footer() {
           </nav>
         </div>
 
-        {/* Option B disclaimer (vault 38 §1.2 Strategic Decision 0) */}
-        <div className="mt-6 break-keep border-t border-cohort-ink-10 pt-4 text-xs text-cohort-ink-50">
-          본 서비스는 정보 제공 + 의사결정 지원 도구이며, 투자 자문 서비스가 아닙니다. 모든 투자 결정과 손익은 사용자 본인의 책임입니다.
-        </div>
-
         <div className="mt-6 break-keep text-xs text-cohort-ink-50">
           <div className="flex flex-wrap gap-x-4 gap-y-1">
             <span>
-              개인 운영 서비스 · 문의:{' '}
+              문의:{' '}
               <strong className="font-medium text-cohort-ink-70">
                 gmj1197@gmail.com
               </strong>
             </span>
           </div>
           <div className="mt-3 text-cohort-ink-30">
-            © 2026 Cohort. All rights reserved.
+            © 2026 The Bearings. All rights reserved.
           </div>
         </div>
       </div>

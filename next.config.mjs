@@ -37,7 +37,13 @@ const nextConfig = {
       // would form a loop against the apex→www 308 above.
       {
         source: '/',
-        has: [{ type: 'host', value: '(www\\.)?thebearings\\.app' }],
+        has: [{ type: 'host', value: 'www.thebearings.app' }],
+        destination: '/regime',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [{ type: 'host', value: 'thebearings.app' }],
         destination: '/regime',
         permanent: false,
       },

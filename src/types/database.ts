@@ -169,6 +169,39 @@ export type Database = {
         }
         Relationships: []
       }
+      clicks: {
+        Row: {
+          concept: string | null
+          country: string | null
+          created_at: string
+          id: string
+          referrer: string | null
+          slug: string
+          sub_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          concept?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          referrer?: string | null
+          slug: string
+          sub_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          concept?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          referrer?: string | null
+          slug?: string
+          sub_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       loi_conversion: {
         Row: {
           churn_reason: string[] | null

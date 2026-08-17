@@ -10,7 +10,7 @@
  * overlay instead). Sentry.captureException is a no-op if SENTRY_DSN is
  * not set in env — sentry.client.config.ts handles the init.
  *
- * Renders a Cohort-branded minimal fallback (vault 38/42 token compliant).
+ * Renders a Bearings-branded minimal fallback (no Cohort chrome).
  */
 import * as Sentry from '@sentry/nextjs';
 import { useEffect } from 'react';
@@ -57,7 +57,7 @@ export default function GlobalError({
               fontWeight: 500,
             }}
           >
-            Cohort
+            The Bearings
           </p>
           <h1
             style={{
