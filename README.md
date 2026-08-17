@@ -1,8 +1,11 @@
-# Cohort
+# Bearings / Cohort
 
 > Your investing cohort — the investing pace companion for sophisticated retail.
 
 **Live:** [cohort.co.kr](https://www.cohort.co.kr/) · **Docs index:** [`docs/README.md`](docs/README.md)
+
+The English Bearings regime analyzer is live at
+[thebearings.app/regime](https://www.thebearings.app/regime).
 
 Aurora 🕊 (patient pace) and Vesper 🦅 (sharp signals) help you stay on **your** plan — not ours.  
 **Option B:** Information + Tool + Decision Support only. No investment advice, no auto-trading.
@@ -58,7 +61,7 @@ Branch rules · agent PR workflow · journal: [`docs/engineering/`](docs/enginee
 | Analytics | PostHog, Sentry |
 | Hosting | Vercel + Supabase managed |
 | Runtime | Node ≥ 20.9 · **no NestJS** (Next monolith only) |
-| Local dev | `docker compose up -d postgres` — [`docs/engineering/docker-local.md`](docs/engineering/docker-local.md) |
+| Local dev | macOS/Linux/Windows setup — [`docs/engineering/local-development.md`](docs/engineering/local-development.md) |
 
 ---
 

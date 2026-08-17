@@ -1,0 +1,57 @@
+name: Engineering review
+
+on:
+  # Intentionally disabled for normal PR events while the shared action is
+  # under development. A maintainer can opt into a one-off manual smoke test.
+  workflow_dispatch:
+    inputs:
+      enable_review:
+        description: Run the experimental engineering review
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: engineering-review-manual
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: inputs.enable_review == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check optional review configuration
+        id: config
+        shell: bash
+        env:
+          LLM_URL: ${{ secrets.AI_REVIEW_LLM_URL }}
+          LLM_TOKEN: ${{ secrets.AI_REVIEW_LLM_TOKEN }}
+          LLM_MODEL: ${{ vars.AI_REVIEW_LLM_MODEL }}
+          USE_ANTHROPIC: ${{ vars.AI_REVIEW_USE_ANTHROPIC }}
+        run: |
+          if [ -n "$LLM_URL" ] && [ -n "$LLM_TOKEN" ] && [ -n "$LLM_MODEL" ] && [ -n "$USE_ANTHROPIC" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "AI review is not configured; skipping the experimental review."
+          fi
+
+      - name: Review pull request
+        if: steps.config.outputs.configured == 'true'
+        # engineering-review-action v1.0.0. Keep the consumer pinned to the
+        # verified release SHA; policy and OpenCodeReview wiring live upstream.
+        uses: rayleighko/engineering-review-action@66f5efffa411a355beebc5ba690c31154c580af5
+        with:
+          llm_url: ${{ secrets.AI_REVIEW_LLM_URL }}
+          llm_auth_token: ${{ secrets.AI_REVIEW_LLM_TOKEN }}
+          llm_model: ${{ vars.AI_REVIEW_LLM_MODEL }}
+          llm_use_anthropic: ${{ vars.AI_REVIEW_USE_ANTHROPIC }}
+          profiles: typescript
+          language: Korean
+          background: Manual smoke test from the Bearings consumer repository.
