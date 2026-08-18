@@ -12,6 +12,9 @@ const nextConfig = {
     remotePatterns: [
       // Future CDN subdomain for mascot art + screenshots
       { protocol: 'https', hostname: 'cdn.cohort.co.kr' },
+      // Official Coupang product thumbnails on desk items (next/image)
+      { protocol: 'https', hostname: 'thumbnail.coupangcdn.com' },
+      { protocol: 'https', hostname: 'image.coupangcdn.com' },
     ],
   },
   async redirects() {

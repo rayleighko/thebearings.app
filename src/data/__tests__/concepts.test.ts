@@ -33,4 +33,36 @@ describe('concepts catalog', () => {
     const dev = CONCEPTS.find((c) => c.slug === 'dev');
     expect(dev?.items).toHaveLength(5);
   });
+
+  it('uses Coupang CDN thumbnails on every published dev item', () => {
+    const bySlug = Object.fromEntries(
+      (CONCEPTS.find((c) => c.slug === 'dev')?.items ?? []).map((i) => [i.slug, i]),
+    );
+
+    expect(bySlug['arm-nb-f80']?.img).toBe(
+      'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/91721891173174-9f29666a-db34-4290-8088-8dd9d8190f7e.jpg',
+    );
+    expect(bySlug['stand-laptop']?.img).toBe(
+      'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
+    );
+    expect(bySlug['kbd-keychron-k8']?.img).toBe(
+      'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/1025_amir_coupang_oct_80k/3521/906a07f8c5d1459c57c826cc79daa9270da92a7c14721033c4082ba1c89a.jpg',
+    );
+    expect(bySlug['mouse-mx-master']?.img).toBe(
+      'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/987378244568031-c2e35266-fd66-430d-896d-0f06d6c3c00b.jpg',
+    );
+    // Founder-confirmed 스크린바 URL. stand-laptop was already wired to the
+    // same CDN path as 노트북 스탠드 — left as-is (no mislabel comment).
+    expect(bySlug['lamp-screenbar']?.img).toBe(
+      'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
+    );
+  });
+
+  it('keeps Coupang Partners productUrl deeplinks on every published item', () => {
+    for (const concept of listPublishedConcepts()) {
+      for (const item of concept.items) {
+        expect(item.productUrl).toMatch(/^https:\/\/link\.coupang\.com\//);
+      }
+    }
+  });
 });
