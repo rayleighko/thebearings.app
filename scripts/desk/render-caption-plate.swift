@@ -11,6 +11,9 @@ struct Opts {
   var out = ""
   var width = 1080
   var height = 1920
+  /// Distance from the frame bottom to the caption pill (AppKit Y).
+  /// 720 sits above Naver Clip + Shopping Connect product card (~30% chrome).
+  var safeBottom = 720
 }
 
 func parseArgs() -> Opts {
@@ -26,6 +29,7 @@ func parseArgs() -> Opts {
     case "--out": opts.out = value
     case "--width": opts.width = Int(value) ?? opts.width
     case "--height": opts.height = Int(value) ?? opts.height
+    case "--safe-bottom": opts.safeBottom = Int(value) ?? opts.safeBottom
     default: break
     }
   }
@@ -39,10 +43,32 @@ func font(named names: [String], size: CGFloat) -> NSFont {
   return NSFont.boldSystemFont(ofSize: size)
 }
 
+func wrapLine(_ text: String, font: NSFont, maxWidth: CGFloat) -> String {
+  let attrs: [NSAttributedString.Key: Any] = [.font: font]
+  var lines: [String] = []
+  var current = ""
+  for ch in text {
+    let trial = current + String(ch)
+    let width = NSAttributedString(string: trial, attributes: attrs).size().width
+    if width > maxWidth && !current.isEmpty {
+      lines.append(current)
+      current = String(ch)
+    } else {
+      current = trial
+    }
+  }
+  if !current.isEmpty { lines.append(current) }
+  return lines.joined(separator: "\n")
+}
+
 func drawPill(text: String, font: NSFont, in ctx: NSGraphicsContext, origin: NSPoint) -> NSSize {
+  let paragraph = NSMutableParagraphStyle()
+  paragraph.alignment = .center
+  paragraph.lineSpacing = 4
   let attrs: [NSAttributedString.Key: Any] = [
     .font: font,
     .foregroundColor: NSColor.white,
+    .paragraphStyle: paragraph,
   ]
   let attr = NSAttributedString(string: text, attributes: attrs)
   let textSize = attr.size()
@@ -62,7 +88,7 @@ func drawPill(text: String, font: NSFont, in ctx: NSGraphicsContext, origin: NSP
 
 let opts = parseArgs()
 guard !opts.text.isEmpty, !opts.out.isEmpty else {
-  FileHandle.standardError.write(Data("usage: render-caption-plate.swift --text <s> --out <png> [--badge <s>]\n".utf8))
+  FileHandle.standardError.write(Data("usage: render-caption-plate.swift --text <s> --out <png> [--badge <s>] [--safe-bottom 720]\n".utf8))
   exit(2)
 }
 
@@ -98,15 +124,16 @@ let captionFont = font(
   named: ["AppleSDGothicNeo-Bold", "Apple SD Gothic Neo Bold", "AppleSDGothicNeo-SemiBold"],
   size: 52
 )
+let wrapped = wrapLine(opts.text, font: captionFont, maxWidth: CGFloat(opts.width) - 96)
 let captionSize = NSAttributedString(
-  string: opts.text,
+  string: wrapped,
   attributes: [.font: captionFont]
 ).size()
 let captionOrigin = NSPoint(
   x: max(24, (CGFloat(opts.width) - (captionSize.width + 44)) / 2),
-  y: 168
+  y: CGFloat(opts.safeBottom)
 )
-_ = drawPill(text: opts.text, font: captionFont, in: ctx, origin: captionOrigin)
+_ = drawPill(text: wrapped, font: captionFont, in: ctx, origin: captionOrigin)
 
 if let badge = opts.badge, !badge.isEmpty {
   let badgeFont = font(

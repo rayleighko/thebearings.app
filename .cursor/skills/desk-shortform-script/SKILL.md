@@ -21,10 +21,11 @@ Do not skip `vo.gender` or `picture.hookGender`. Never put pause tokens in the p
 | `vo.speed` | `1` |
 | Pause | Studio `[0.2s 추가]` after each of the first 3 lines. **Not in the text.** |
 | On-screen `[광고]` | never |
+| Caption / sticker | One 9:16 master. Captions sit 720px from the bottom; SKU sticker 800px. Clears Naver Shopping Connect product card + YouTube Shorts chrome. Do **not** export a second ratio or a Naver-only cut. |
 | Logo / AE sting | never (before ep 6) |
-| CTA | last line `링크는 댓글에 있어요.` |
+| CTA | last line `링크는 댓글에 있어요.` **Publish is not done until that platform's comment exists.** YouTube pinned = Coupang. Naver comment = `naver.me` (same SKU). Never mix. |
 | YouTube link | `youtube.productUrl` Coupang deeplink |
-| Naver link | Brand Connect only |
+| Naver link | Brand Connect / Shopping Connect attach + the same `naver.me` in the Clip comment |
 | `youtube.category` | `노하우 및 스타일` |
 | `youtube.language` | `한국어` |
 | `youtube.playlist` | `데스크` |

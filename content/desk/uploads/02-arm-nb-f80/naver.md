@@ -15,3 +15,10 @@ https://naver.me/5K6ntkF6
 
 파일: `content/desk/uploads/02-arm-nb-f80/video.mp4`  
 쿠팡 링크 넣지 말 것. 본인 네이버 링크 누르지 말 것.
+
+## 댓글 (필수)
+
+```
+링크는 여기
+https://naver.me/5K6ntkF6
+```

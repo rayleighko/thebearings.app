@@ -72,3 +72,9 @@ https://naver.me/5K6ntkF6
 - YouTube는 쿠팡 딥링크. 네이버는 `https://naver.me/5K6ntkF6`만. 섞지 말 것
 - 프로필(선택): `https://desk.thebearings.app/dev`
 - 올린 뒤 본인이 Brand Connect 링크 직접 누르지 말 것
+- 댓글(필수):
+
+```
+링크는 여기
+https://naver.me/5K6ntkF6
+```

@@ -22,13 +22,14 @@ NN-sku/
 
 ## 플랫폼별 링크·업로드
 
-- **YouTube Shorts:** 설명란에 쿠팡 딥링크 바로 (`link.coupang.com`). `go` 쓰지 않음.
-- **네이버 클립:** 브랜드 커넥트 발급 URL만. 모바일 앱 업로드. 쿠팡/`go` 넣지 말 것.
+- **YouTube Shorts:** 설명 + **고정 댓글**에 쿠팡 딥링크 (`link.coupang.com`). `go` 쓰지 않음.
+- **네이버 클립:** 쇼핑 커넥트로 상품 붙이기 + **댓글**에 같은 `naver.me`. 쿠팡/`go` 넣지 말 것.
+- 영상이 `링크는 댓글에 있어요`이면 그 플랫폼 댓글이 비어 있으면 안 됨. 업로드 직후 댓글이 공개 조건.
 
 ## 공통
 
 - 화면 `[광고]` 없음. 고지는 설명란 첫 줄 `[광고]` 접두(+유튜브 유료 프로모션 체크)
-- 설명 링크: SKU `go` 링크 (`https://go.thebearings.app/{sku}`). raw `link.coupang.com` 넣지 말 것
-- 프로필 링크: `https://desk.thebearings.app/dev` (책상 페이지. 선택)
-- CTA 문장: **링크는 여기** (제품 링크가 설명란에 있음)
-- mp4는 git에 안 넣는다. 메타데이터(md, srt, 이 README)만 커밋한다
+- 프로필 링크(선택): `https://desk.thebearings.app/dev`
+- 자막 세이프존: 아래 720px / 스티커 800px (쇼핑 커넥트 카드 피함). 9:16 마스터 하나.
+- mp4는 git에 안 넣는다. 메타데이터(md, srt, json, 이 README)만 커밋한다
+- 회고 SoT: `docs/desk/retro-2026-08-18.md`

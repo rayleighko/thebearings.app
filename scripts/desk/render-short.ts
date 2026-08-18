@@ -208,6 +208,8 @@ function renderPlates(): void {
       '1080',
       '--height',
       '1920',
+      '--safe-bottom',
+      '720',
     ];
     // No --badge: founder keeps Coupang disclosure off the picture.
     const result = run('swift', args);

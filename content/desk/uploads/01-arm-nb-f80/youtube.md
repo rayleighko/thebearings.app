@@ -25,10 +25,12 @@ https://link.coupang.com/a/gi6GpRFFBI
 
 ---
 
-## 고정 댓글
+## 고정 댓글 (필수 — 영상 CTA가 댓글을 가리킴)
 
+```
 링크는 여기
 https://link.coupang.com/a/gi6GpRFFBI
+```
 
 ---
 

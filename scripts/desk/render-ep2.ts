@@ -24,6 +24,10 @@ const PACK = path.resolve(ROOT, 'content/desk/uploads/02-arm-nb-f80/video.mp4');
 const SCALE =
   'scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30';
 
+/** Shared 9:16 file — raised so Naver Shopping Connect card + Shorts chrome do not cover copy. */
+const CAPTION_SAFE_BOTTOM = 720;
+const STICKER_SAFE_BOTTOM = 800;
+
 type Shot = {
   file: string;
   sourceStart: number;
@@ -105,6 +109,8 @@ function plates(): void {
       '1080',
       '--height',
       '1920',
+      '--safe-bottom',
+      String(CAPTION_SAFE_BOTTOM),
     ]);
     if (!existsSync(out)) die(`plate missing ${out}`);
   }
@@ -151,7 +157,7 @@ function burnAndMux(): void {
   }
 
   const chain: string[] = [
-    `[0:v][1:v]overlay=W-w-36:H-h-220:enable='gte(t,5)'[vs]`,
+    `[0:v][1:v]overlay=W-w-36:H-h-${STICKER_SAFE_BOTTOM}:enable='gte(t,5)'[vs]`,
   ];
   let last = '[vs]';
   CAPTIONS.forEach((cap, i) => {
@@ -211,7 +217,8 @@ function verify(): void {
         vo: '예슬 / 일반 / 1.0x',
         notes: [
           'No ep1 clip reuse',
-          'Sticker from 5.0s',
+          'Sticker from 5.0s, above Shopping Connect card',
+          'Captions at safe-bottom 720 (YouTube + Naver shared)',
           'No on-screen [광고]',
         ],
       },
