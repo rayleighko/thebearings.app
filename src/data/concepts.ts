@@ -2,13 +2,11 @@
  * Desk concept catalog — file-backed, portable to a later DB move.
  * Click logs live in Supabase `clicks`; concept content does NOT.
  *
- * OPERATOR: replace every `productUrl` with a Coupang Partners deeplink
- * before launch. Current values are unmarked-as-affiliate search URLs so
- * local /go redirects have somewhere to land. Do not invent partner keys.
+ * productUrl values are Coupang Partners deeplinks (mid-tier, rocket-eligible
+ * value picks). Do not replace with unmarked search URLs.
  *
- * OPERATOR: drop real product cutouts at `public/desk/{concept}/{id}.png`
- * (rembg / remove.bg / Photoshop — no AI morphing). Current PNGs are
- * geometric placeholders so layout and tap targets work.
+ * OPERATOR: `img` is a local `/desk/...` placeholder or a Coupang CDN
+ * thumbnail URL. Do not crawl affiliate pages for images.
  */
 
 export type Item = {
@@ -18,9 +16,9 @@ export type Item = {
   price: string;
   /** 1:1 with go/:slug */
   slug: string;
-  /** Coupang Partners deeplink (placeholder until operator replaces). */
+  /** Coupang Partners deeplink */
   productUrl: string;
-  /** Cutout PNG path under /public */
+  /** Local `/public` path or https Coupang CDN thumbnail */
   img: string;
   /** % of background, center point */
   x: number;
@@ -39,20 +37,14 @@ export type Concept = {
   items: Item[];
 };
 
-/** Search URL — NOT a Partners deeplink. Operator must replace. */
-function placeholderSearchUrl(query: string): string {
-  const q = encodeURIComponent(query);
-  return `https://www.coupang.com/np/search?q=${q}&channel=user`;
-}
-
 const DEV_ITEMS: Item[] = [
   {
     id: 'arm-nb-f80',
-    name: 'NB F80 모니터암',
+    name: '싱글 모니터암',
     price: '4만 원대',
     slug: 'arm-nb-f80',
-    productUrl: placeholderSearchUrl('NB F80 모니터암'),
-    img: '/desk/dev/arm-nb-f80.png',
+    productUrl: 'https://link.coupang.com/a/gi6GpRFFBI',
+    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/91721891173174-9f29666a-db34-4290-8088-8dd9d8190f7e.jpg',
     x: 50,
     y: 40,
     w: 42,
@@ -60,11 +52,11 @@ const DEV_ITEMS: Item[] = [
   },
   {
     id: 'lamp-screenbar',
-    name: '스크린바 모니터 조명',
+    name: '스크린바',
     price: '5만 원대',
     slug: 'lamp-screenbar',
-    productUrl: placeholderSearchUrl('모니터 스크린바'),
-    img: '/desk/dev/lamp-screenbar.png',
+    productUrl: 'https://link.coupang.com/a/gi7YPbNxdY',
+    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
     x: 50,
     y: 28,
     w: 30,
@@ -72,11 +64,11 @@ const DEV_ITEMS: Item[] = [
   },
   {
     id: 'stand-laptop',
-    name: '알루미늄 노트북 스탠드',
+    name: '노트북 스탠드',
     price: '3만 원대',
     slug: 'stand-laptop',
-    productUrl: placeholderSearchUrl('알루미늄 노트북 스탠드'),
-    img: '/desk/dev/stand-laptop.png',
+    productUrl: 'https://link.coupang.com/a/gi6MkDloqW',
+    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
     x: 22,
     y: 58,
     w: 22,
@@ -84,11 +76,11 @@ const DEV_ITEMS: Item[] = [
   },
   {
     id: 'kbd-keychron-k8',
-    name: '기계식 키보드',
+    name: '키보드',
     price: '12만 원대',
     slug: 'kbd-keychron-k8',
-    productUrl: placeholderSearchUrl('기계식 키보드'),
-    img: '/desk/dev/kbd-keychron-k8.png',
+    productUrl: 'https://link.coupang.com/a/gi61Ks22XA',
+    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/1025_amir_coupang_oct_80k/3521/906a07f8c5d1459c57c826cc79daa9270da92a7c14721033c4082ba1c89a.jpg',
     x: 48,
     y: 70,
     w: 34,
@@ -96,11 +88,11 @@ const DEV_ITEMS: Item[] = [
   },
   {
     id: 'mouse-mx-master',
-    name: '무선 마우스',
+    name: '마우스',
     price: '8만 원대',
     slug: 'mouse-mx-master',
-    productUrl: placeholderSearchUrl('무선 마우스'),
-    img: '/desk/dev/mouse-mx-master.png',
+    productUrl: 'https://link.coupang.com/a/gi79m3yxFY',
+    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/987378244568031-c2e35266-fd66-430d-896d-0f06d6c3c00b.jpg',
     x: 74,
     y: 72,
     w: 10,
