@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { AffiliateDisclosure } from '@/components/desk/AffiliateDisclosure';
+import { DeskBrand } from '@/components/desk/DeskBrand';
 import { CONCEPTS, listPublishedConcepts } from '@/data/concepts';
-import { deskConceptHref } from '@/lib/desk/urls';
+import { deskConceptHref, deskIndexHref } from '@/lib/desk/urls';
 
 export default async function DeskIndexPage() {
   const host = (await headers()).get('host') ?? '';
@@ -11,10 +12,11 @@ export default async function DeskIndexPage() {
   return (
     <main className="mx-auto min-h-screen max-w-xl break-keep bg-cohort-ivory px-5 py-10 text-cohort-ink-90">
       <AffiliateDisclosure className="rounded-lg border border-cohort-ink-10 bg-white px-4 py-3 text-cohort-ink-70" />
-      <h1 className="mt-8 text-2xl font-semibold">Desk</h1>
-      <p className="mt-3 text-base text-cohort-ink-70">
-        책상 컨셉을 고르면 물건이 놓인 장면을 볼 수 있습니다. 탭하면 제품 정보와
-        구매 링크가 열립니다.
+      <header className="mt-8">
+        <DeskBrand href={deskIndexHref(host)} />
+      </header>
+      <p className="mt-6 text-base text-cohort-ink-70">
+        책상 컨셉을 고르면 물건을 보고 구매 링크로 갈 수 있습니다.
       </p>
       <p className="mt-2 text-sm text-cohort-ink-50">가격은 변동될 수 있습니다.</p>
       <ul className="mt-8 space-y-3">

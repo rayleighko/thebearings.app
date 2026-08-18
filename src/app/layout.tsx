@@ -69,21 +69,32 @@ const bearingsMetadata: Metadata = {
   },
 };
 
+const DESK_ICONS: NonNullable<Metadata['icons']> = {
+  icon: [
+    { url: '/desk/favicon-16.png', type: 'image/png', sizes: '16x16' },
+    { url: '/desk/favicon-32.png', type: 'image/png', sizes: '32x32' },
+    { url: '/desk/favicon-48.png', type: 'image/png', sizes: '48x48' },
+    { url: '/desk/icon-192.png', type: 'image/png', sizes: '192x192' },
+    { url: '/desk/icon-512.png', type: 'image/png', sizes: '512x512' },
+  ],
+  apple: { url: '/desk/apple-touch-icon.png', sizes: '180x180' },
+};
+
 const deskGoMetadata: Metadata = {
   metadataBase: new URL('https://desk.thebearings.app'),
   title: {
-    default: 'Desk — 책상 위 물건',
+    default: '살까말까 연구소',
     template: '%s',
   },
   description:
     '책상 위 물건을 탭하면 제품 정보와 구매 링크가 열립니다. 쿠팡 파트너스 활동의 일환입니다.',
-  applicationName: 'Desk',
+  applicationName: '살까말까 연구소',
   manifest: '/desk.webmanifest',
-  icons: BEARINGS_ICONS,
+  icons: DESK_ICONS,
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Desk',
+    title: '살까말까 연구소',
   },
 };
 

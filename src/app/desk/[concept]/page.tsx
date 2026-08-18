@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { AffiliateDisclosure } from '@/components/desk/AffiliateDisclosure';
+import { DeskBrand } from '@/components/desk/DeskBrand';
 import { DeskHero } from '@/components/desk/DeskHero';
 import { DeskProductCards } from '@/components/desk/DeskProductCards';
 import { CONCEPTS, getConcept, orderDeskItems } from '@/data/concepts';
@@ -20,10 +21,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { concept: slug } = await params;
   const concept = getConcept(slug);
   if (!concept) {
-    return { title: { absolute: 'Desk' } };
+    return { title: { absolute: '살까말까 연구소' } };
   }
   return {
-    title: { absolute: `${concept.title} — Desk` },
+    title: { absolute: `${concept.title} — 살까말까 연구소` },
     description: concept.note,
   };
 }
@@ -40,7 +41,10 @@ export default async function DeskConceptPage({ params }: PageProps) {
   return (
     <main className="mx-auto min-h-screen max-w-3xl break-keep bg-cohort-ivory px-4 py-8 text-cohort-ink-90 sm:px-6">
       <AffiliateDisclosure className="rounded-lg border border-cohort-ink-10 bg-white px-4 py-3 text-cohort-ink-70" />
-      <nav className="mt-6">
+      <header className="mt-6">
+        <DeskBrand href={deskIndexHref(host)} />
+      </header>
+      <nav className="mt-2">
         <Link
           href={deskIndexHref(host)}
           className="inline-flex min-h-[44px] items-center text-sm text-cohort-ink-50 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
