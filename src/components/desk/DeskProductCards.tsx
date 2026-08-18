@@ -42,7 +42,7 @@ export function DeskProductCards({
                 <div className="relative aspect-square w-full bg-cohort-ivory p-4">
                   {featured ? (
                     <span className="absolute left-3 top-3 z-10 rounded-md bg-cohort-charcoal px-2 py-1 text-xs font-medium text-white">
-                      추천
+                      이 영상
                     </span>
                   ) : null}
                   <Image
