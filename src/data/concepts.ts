@@ -5,8 +5,10 @@
  * productUrl values are Coupang Partners deeplinks (mid-tier, rocket-eligible
  * value picks). Do not replace with unmarked search URLs.
  *
- * OPERATOR: `img` is a local `/desk/...` placeholder or a Coupang CDN
- * thumbnail URL. Do not crawl affiliate pages for images.
+ * OPERATOR: `img` is a local rembg cutout (`/desk/dev/{id}.png`) or a
+ * Coupang CDN thumbnail URL. Official source pixels live in
+ * `DEV_OFFICIAL_CDN_THUMBS`. Do not crawl affiliate pages. Do not send
+ * product images to GPT (or any image-gen API) to invent a desk scene.
  */
 
 export type Item = {
@@ -18,7 +20,7 @@ export type Item = {
   slug: string;
   /** Coupang Partners deeplink */
   productUrl: string;
-  /** Local `/public` path or https Coupang CDN thumbnail */
+  /** Local rembg cutout (`/desk/dev/{id}.png`) or Coupang CDN thumbnail */
   img: string;
   /** % of background, center point */
   x: number;
@@ -44,7 +46,7 @@ const DEV_ITEMS: Item[] = [
     price: '4만 원대',
     slug: 'arm-nb-f80',
     productUrl: 'https://link.coupang.com/a/gi6GpRFFBI',
-    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/91721891173174-9f29666a-db34-4290-8088-8dd9d8190f7e.jpg',
+    img: '/desk/dev/arm-nb-f80.png',
     x: 50,
     y: 40,
     w: 42,
@@ -56,7 +58,7 @@ const DEV_ITEMS: Item[] = [
     price: '5만 원대',
     slug: 'lamp-screenbar',
     productUrl: 'https://link.coupang.com/a/gi7YPbNxdY',
-    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
+    img: '/desk/dev/lamp-screenbar.png',
     x: 50,
     y: 28,
     w: 30,
@@ -68,7 +70,7 @@ const DEV_ITEMS: Item[] = [
     price: '3만 원대',
     slug: 'stand-laptop',
     productUrl: 'https://link.coupang.com/a/gi6MkDloqW',
-    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
+    img: '/desk/dev/stand-laptop.png',
     x: 22,
     y: 58,
     w: 22,
@@ -80,7 +82,7 @@ const DEV_ITEMS: Item[] = [
     price: '12만 원대',
     slug: 'kbd-keychron-k8',
     productUrl: 'https://link.coupang.com/a/gi61Ks22XA',
-    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/1025_amir_coupang_oct_80k/3521/906a07f8c5d1459c57c826cc79daa9270da92a7c14721033c4082ba1c89a.jpg',
+    img: '/desk/dev/kbd-keychron-k8.png',
     x: 48,
     y: 70,
     w: 34,
@@ -92,13 +94,30 @@ const DEV_ITEMS: Item[] = [
     price: '8만 원대',
     slug: 'mouse-mx-master',
     productUrl: 'https://link.coupang.com/a/gi79m3yxFY',
-    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/987378244568031-c2e35266-fd66-430d-896d-0f06d6c3c00b.jpg',
+    img: '/desk/dev/mouse-mx-master.png',
     x: 74,
     y: 72,
     w: 10,
     z: 5,
   },
 ];
+
+/**
+ * Official Coupang CDN thumbs (source pixels for rembg). Overlay `img`
+ * points at the local cutout after `pnpm desk:cutout-thumbs`.
+ */
+export const DEV_OFFICIAL_CDN_THUMBS: Record<string, string> = {
+  'arm-nb-f80':
+    'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/91721891173174-9f29666a-db34-4290-8088-8dd9d8190f7e.jpg',
+  'lamp-screenbar':
+    'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
+  'stand-laptop':
+    'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/8604239937395705-2fe01d34-70d0-4224-9e48-265326f123b3.jpg',
+  'kbd-keychron-k8':
+    'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/1025_amir_coupang_oct_80k/3521/906a07f8c5d1459c57c826cc79daa9270da92a7c14721033c4082ba1c89a.jpg',
+  'mouse-mx-master':
+    'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/987378244568031-c2e35266-fd66-430d-896d-0f06d6c3c00b.jpg',
+};
 
 export const CONCEPTS: Concept[] = [
   {
@@ -160,4 +179,16 @@ export function getSlugTarget(slug: string): SlugTarget | undefined {
 
 export function listPublishedConcepts(): Concept[] {
   return CONCEPTS.filter((c) => c.items.length > 0);
+}
+
+/** Shorts traffic SKU — shown first on list-first concept pages. */
+export const DESK_FEATURED_SLUG = 'arm-nb-f80';
+
+export function orderDeskItems(
+  items: Item[],
+  featuredSlug: string = DESK_FEATURED_SLUG,
+): Item[] {
+  const featured = items.find((item) => item.id === featuredSlug);
+  if (!featured) return items;
+  return [featured, ...items.filter((item) => item.id !== featuredSlug)];
 }

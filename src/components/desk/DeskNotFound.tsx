@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { DeskBrand } from '@/components/desk/DeskBrand';
 
 type DeskNotFoundProps = {
   homeHref?: string;
@@ -14,8 +15,8 @@ export function DeskNotFound({
 }: DeskNotFoundProps) {
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-6 py-16 text-center break-keep text-cohort-ink-90">
-      <p className="text-sm text-cohort-ink-50">Desk</p>
-      <h1 className="mt-2 text-2xl font-semibold">페이지를 찾을 수 없습니다</h1>
+      <DeskBrand href={homeHref} />
+      <h1 className="mt-6 text-2xl font-semibold">페이지를 찾을 수 없습니다</h1>
       <p className="mt-3 text-sm text-cohort-ink-50">
         주소가 바뀌었거나 없는 책상·링크입니다.
       </p>

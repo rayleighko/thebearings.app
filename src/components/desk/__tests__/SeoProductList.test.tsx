@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { SeoProductList } from '@/components/desk/SeoProductList';
+import { DeskProductCards } from '@/components/desk/DeskProductCards';
+import { orderDeskItems } from '@/data/concepts';
 import { AFFILIATE_DISCLOSURE } from '@/components/desk/AffiliateDisclosure';
 import { AffiliateDisclosure } from '@/components/desk/AffiliateDisclosure';
 import { getConcept } from '@/data/concepts';
@@ -16,12 +17,13 @@ describe('desk compliance copy', () => {
     expect(AFFILIATE_DISCLOSURE).not.toContain('받을 수 있습니다');
   });
 
-  it('emits a text product list with sponsored rel', () => {
+  it('emits product cards with sponsored rel', () => {
     const dev = getConcept('dev');
     expect(dev).toBeDefined();
-    render(<SeoProductList items={dev!.items} heading="이 책상의 물건" />);
-    for (const item of dev!.items) {
-      const link = screen.getByRole('link', { name: item.name });
+    const items = orderDeskItems(dev!.items);
+    render(<DeskProductCards items={items} heading="이 책상의 물건" />);
+    for (const item of items) {
+      const link = screen.getByRole('link', { name: new RegExp(item.name) });
       expect(link.getAttribute('rel')).toBe(AFFILIATE_REL);
     }
   });

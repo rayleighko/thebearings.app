@@ -1,0 +1,60 @@
+{
+  "name": "ep2-arm-nb-f80",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "ratio": "9:16",
+  "vo": "../../content/desk/uploads/02-arm-nb-f80/vo.wav",
+  "tracks": [
+    {
+      "type": "video",
+      "name": "main",
+      "items": [
+        {
+          "ref": "hook",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-27430390.mp4",
+          "start": 0,
+          "duration": 2.2,
+          "sourceStart": 3.5
+        },
+        {
+          "ref": "agitate",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-4629777.mp4",
+          "start": 2.2,
+          "duration": 2.8,
+          "sourceStart": 1.0
+        },
+        {
+          "ref": "product",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-8480480.mp4",
+          "start": 5.0,
+          "duration": 3.0,
+          "sourceStart": 1.0
+        },
+        {
+          "ref": "cta",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-6177723.mp4",
+          "start": 8.0,
+          "duration": 2.2,
+          "sourceStart": 0.4
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "sticker",
+      "items": [
+        {
+          "ref": "sku-sticker",
+          "path": "../../public/desk/dev/arm-nb-f80.png",
+          "start": 5.0,
+          "duration": 5.2,
+          "type": "photo",
+          "scale": 0.18,
+          "x": 0.79,
+          "y": -0.88
+        }
+      ]
+    }
+  ]
+}
