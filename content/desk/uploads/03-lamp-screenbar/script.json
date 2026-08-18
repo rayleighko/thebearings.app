@@ -1,0 +1,47 @@
+{
+  "episode": 3,
+  "sku": "lamp-screenbar",
+  "title": "모니터가 눈부셔요?",
+  "durationSec": 9,
+  "vo": {
+    "gender": "female",
+    "actor": "예슬",
+    "language": "kor",
+    "speed": 1,
+    "emotion": "normal",
+    "pauseSec": 0.2,
+    "register": "해요체",
+    "lines": [
+      "모니터가 눈부셔요?",
+      "천장 불은 화면에 반사돼요.",
+      "바만 달면 화면만 밝아져요.",
+      "링크는 댓글에 있어요."
+    ]
+  },
+  "picture": {
+    "hookGender": "female",
+    "productFromSec": 5,
+    "notes": "첫 프레임 여성, 화면 눈부심/찡그림. 암 1·2편 클립 재사용 금지. 5초부터 스크린바 스티커."
+  },
+  "youtube": {
+    "title": "모니터가 눈부셔요?",
+    "descriptionLead": "모니터가 눈부시면 천장 불부터 보면 됨.",
+    "productUrl": "https://link.coupang.com/a/gi7YPbNxdY",
+    "tags": [
+      "스크린바",
+      "모니터조명",
+      "눈피로",
+      "데스크셋업",
+      "살까말까연구소"
+    ],
+    "hashtags": ["#스크린바", "#모니터조명", "#데스크셋업", "#shorts"],
+    "category": "노하우 및 스타일",
+    "language": "한국어",
+    "playlist": "데스크",
+    "madeForKids": false,
+    "paidPromotion": true,
+    "comments": "on",
+    "showLikeCount": true,
+    "thumbnail": "from-video"
+  }
+}

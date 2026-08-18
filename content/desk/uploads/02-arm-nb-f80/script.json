@@ -1,0 +1,47 @@
+{
+  "episode": 2,
+  "sku": "arm-nb-f80",
+  "title": "목 아픈데 의자만 바꿔요?",
+  "durationSec": 10,
+  "vo": {
+    "gender": "female",
+    "actor": "예슬",
+    "language": "kor",
+    "speed": 1,
+    "emotion": "normal",
+    "pauseSec": 0.2,
+    "register": "해요체",
+    "lines": [
+      "목 아픈데 의자만 바꿔요?",
+      "모니터가 아래면 고개가 따라 내려가요.",
+      "눈높이만 맞추면 돼요.",
+      "링크는 댓글에 있어요."
+    ]
+  },
+  "picture": {
+    "hookGender": "male",
+    "productFromSec": 5,
+    "notes": "첫 프레임 남성 고개 숙임. 1편 클립 재사용 금지. 5초부터 암 스티커."
+  },
+  "youtube": {
+    "title": "목 아픈데 의자만 바꿔요?",
+    "descriptionLead": "목 아픈데 의자만 바꿔요? 모니터 높이부터 보면 됨.",
+    "productUrl": "https://link.coupang.com/a/gi6GpRFFBI",
+    "tags": [
+      "모니터암",
+      "거북목",
+      "데스크셋업",
+      "재택근무",
+      "살까말까연구소"
+    ],
+    "hashtags": ["#모니터암", "#거북목", "#데스크셋업", "#shorts"],
+    "category": "노하우 및 스타일",
+    "language": "한국어",
+    "playlist": "데스크",
+    "madeForKids": false,
+    "paidPromotion": true,
+    "comments": "on",
+    "showLikeCount": true,
+    "thumbnail": "from-video"
+  }
+}

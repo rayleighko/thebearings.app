@@ -86,6 +86,20 @@ next-env.d.ts
 # Local-only files
 *.local
 
+# Operator licensed stock-clip cache (Pexels search JSON + preview binaries)
+tmp/
+
+# Desk shortform publish queue lives in content/desk/uploads/
+# Keep title/description markdown; leave large binaries on disk only.
+content/desk/uploads/**/*.mp4
+content/desk/uploads/**/*.mov
+content/desk/uploads/**/*.wav
+
+# Post-deploy phone download copies (local only; deploy separately)
+public/uploads/**/*.mp4
+public/uploads/**/*.mov
+
+
 # Nuxt.js build / generate output
 .nuxt
 dist

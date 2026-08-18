@@ -1,0 +1,101 @@
+{
+  "name": "ep1-arm-nb-f80",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "ratio": "9:16",
+  "tracks": [
+    {
+      "type": "video",
+      "name": "main",
+      "items": [
+        {
+          "ref": "hook",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-8519534.mp4",
+          "start": 0,
+          "duration": 2,
+          "sourceStart": 0
+        },
+        {
+          "ref": "agitate",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-7489592.mp4",
+          "start": 2,
+          "duration": 6,
+          "sourceStart": 0
+        },
+        {
+          "ref": "height",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-12894329.mp4",
+          "start": 8,
+          "duration": 6,
+          "sourceStart": 0
+        },
+        {
+          "ref": "cta",
+          "path": "../../tmp/desk-stock/clips/arm-nb-f80-7653215.mp4",
+          "start": 14,
+          "duration": 6,
+          "sourceStart": 2
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "sticker",
+      "items": [
+        {
+          "ref": "sku-sticker",
+          "path": "../../public/desk/dev/arm-nb-f80.png",
+          "start": 8,
+          "duration": 12,
+          "type": "photo",
+          "scale": 0.18,
+          "x": 0.79,
+          "y": -0.88
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "captions",
+      "items": [
+        {
+          "ref": "cap0",
+          "text": "고개 앞으로 나감",
+          "start": 0,
+          "duration": 2,
+          "fontSize": 18,
+          "color": "#FFFFFF",
+          "y": -0.72
+        },
+        {
+          "ref": "cap1",
+          "text": "오후엔 목부터",
+          "start": 2,
+          "duration": 6,
+          "fontSize": 18,
+          "color": "#FFFFFF",
+          "y": -0.72
+        },
+        {
+          "ref": "cap2",
+          "text": "높이만 맞추면 됨",
+          "start": 8,
+          "duration": 6,
+          "fontSize": 18,
+          "color": "#FFFFFF",
+          "y": -0.72
+        },
+        {
+          "ref": "cap3",
+          "text": "링크는 프로필에",
+          "start": 14,
+          "duration": 6,
+          "fontSize": 18,
+          "color": "#FFFFFF",
+          "y": -0.72
+        }
+      ]
+    }
+  ]
+}

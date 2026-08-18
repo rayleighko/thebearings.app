@@ -13,7 +13,13 @@
     "test": "vitest",
     "test:ci": "vitest run --exclude '**/score-gl-rts.test.ts'",
     "test:e2e": "playwright test",
-    "supabase:types": "supabase gen types typescript --local > src/types/database.ts"
+    "supabase:types": "supabase gen types typescript --local > src/types/database.ts",
+    "desk:fetch-stock": "npx --yes tsx scripts/desk/fetch-stock-clips.ts",
+    "desk:cutout-thumbs": "npx --yes tsx scripts/desk/cutout-official-thumbs.ts",
+    "desk:render-ep1": "npx --yes tsx scripts/desk/render-short.ts",
+    "desk:typecast-tts": "npx --yes tsx scripts/desk/typecast-tts.ts",
+    "desk:print-script": "npx --yes tsx scripts/desk/print-shortform-script.ts",
+    "desk:render-ep2": "npx --yes tsx scripts/desk/render-ep2.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.2",
