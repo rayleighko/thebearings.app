@@ -1,32 +1,26 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
-
-const TITLE = '살까말까 연구소';
-const DESCRIPTION =
-  '책상 위 물건을 탭하면 제품 정보와 구매 링크가 열립니다. 쿠팡 파트너스 활동의 일환입니다.';
-
-const DESK_ICONS: NonNullable<Metadata['icons']> = {
-  icon: [
-    { url: '/desk/favicon-16.png', type: 'image/png', sizes: '16x16' },
-    { url: '/desk/favicon-32.png', type: 'image/png', sizes: '32x32' },
-    { url: '/desk/favicon-48.png', type: 'image/png', sizes: '48x48' },
-    { url: '/desk/icon-192.png', type: 'image/png', sizes: '192x192' },
-    { url: '/desk/icon-512.png', type: 'image/png', sizes: '512x512' },
-  ],
-  apple: { url: '/desk/apple-touch-icon.png', sizes: '180x180' },
-};
+import {
+  DESK_BRAND_DESCRIPTION,
+  DESK_BRAND_NAME,
+  DESK_ICONS,
+  DESK_OPEN_GRAPH,
+  DESK_TWITTER,
+} from '@/lib/desk/brand';
 
 export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESCRIPTION,
-  applicationName: TITLE,
+  title: { absolute: DESK_BRAND_NAME },
+  description: DESK_BRAND_DESCRIPTION,
+  applicationName: DESK_BRAND_NAME,
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: TITLE,
+    title: DESK_BRAND_NAME,
   },
   icons: DESK_ICONS,
   manifest: '/desk.webmanifest',
+  openGraph: DESK_OPEN_GRAPH,
+  twitter: DESK_TWITTER,
 };
 
 /**

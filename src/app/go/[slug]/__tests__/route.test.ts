@@ -53,6 +53,8 @@ describe('GET /go/[slug]', () => {
     expect(res.status).toBe(404);
     expect(logClick).not.toHaveBeenCalled();
     const body = await res.text();
+    expect(body).toContain('살까말까 연구소');
+    expect(body).not.toMatch(/<title>Desk<\/title>/);
     expect(body).not.toMatch(/Cohort/i);
     expect(body).not.toMatch(/Aurora/i);
   });

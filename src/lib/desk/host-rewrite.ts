@@ -3,6 +3,8 @@
  * Browser URL stays host-based (`/dev`, `/arm-nb-f80`); App Router sees `/desk/…` / `/go/…`.
  */
 
+import { isDeskPublicFile } from '@/lib/desk/brand';
+
 const HOST_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 /** Reserved internal path — not a real concept. Triggers desk `notFound()`. */
@@ -24,7 +26,11 @@ function isPassthrough(pathname: string, prefix: string): boolean {
  * (Desk UI) renders instead of the root Cohort 404.
  */
 export function deskRewritePath(pathname: string): string | null {
-  if (isPassthrough(pathname, '/go') || isPassthrough(pathname, '/desk')) {
+  if (
+    isPassthrough(pathname, '/go') ||
+    isPassthrough(pathname, '/desk') ||
+    isDeskPublicFile(pathname)
+  ) {
     return null;
   }
   if (pathname === '/') return '/desk';
@@ -38,7 +44,7 @@ export function deskRewritePath(pathname: string): string | null {
  * Unmatched go-host paths rewrite to `/go` (index calls `notFound()`).
  */
 export function goRewritePath(pathname: string): string | null {
-  if (isPassthrough(pathname, '/go')) {
+  if (isPassthrough(pathname, '/go') || isDeskPublicFile(pathname)) {
     return null;
   }
   if (pathname === '/') return '/go';

@@ -1,16 +1,31 @@
 import type { Metadata } from 'next';
+import {
+  DESK_BRAND_NAME,
+  DESK_ICONS,
+  DESK_OPEN_GRAPH,
+  DESK_TWITTER,
+} from '@/lib/desk/brand';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Desk' },
+  title: { absolute: DESK_BRAND_NAME },
   description: '구매 링크로 이동합니다.',
-  applicationName: '살까말까 연구소',
+  applicationName: DESK_BRAND_NAME,
   robots: { index: false, follow: false },
-  icons: {
-    icon: [
-      { url: '/desk/favicon-16.png', type: 'image/png', sizes: '16x16' },
-      { url: '/desk/favicon-32.png', type: 'image/png', sizes: '32x32' },
-    ],
-    apple: { url: '/desk/apple-touch-icon.png', sizes: '180x180' },
+  icons: DESK_ICONS,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: DESK_BRAND_NAME,
+  },
+  openGraph: {
+    ...DESK_OPEN_GRAPH,
+    title: DESK_BRAND_NAME,
+    description: '구매 링크로 이동합니다.',
+  },
+  twitter: {
+    ...DESK_TWITTER,
+    title: DESK_BRAND_NAME,
+    description: '구매 링크로 이동합니다.',
   },
 };
 

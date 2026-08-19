@@ -10,7 +10,8 @@
  *   Day 5b renders Version C regardless).
  */
 import { NextResponse, type NextRequest } from 'next/server';
-import { isDeskHost, isGoHost } from '@/lib/desk/hosts';
+import { deskBrandRewritePath } from '@/lib/desk/brand';
+import { isDeskHost, isGoHost, isPreviewOrLocalHost } from '@/lib/desk/hosts';
 import {
   deskCanonicalPath,
   deskRewritePath,
@@ -69,6 +70,14 @@ function redirectToPath(request: NextRequest, pathname: string): NextResponse {
 
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') ?? '';
+  const brandDest = deskBrandRewritePath(request.nextUrl.pathname);
+  if (brandDest) {
+    // desk/go + preview validate 살까말까 icons. Cohort/Bearings keep root files.
+    if (isDeskHost(host) || isGoHost(host) || isPreviewOrLocalHost(host)) {
+      return rewriteToPath(request, brandDest);
+    }
+    return NextResponse.next();
+  }
 
   // desk / go hosts skip Cohort auth + session refresh.
   if (isDeskHost(host)) {
@@ -142,8 +151,15 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Run on everything except static assets, the SW, and image files.
+  // Static product images stay out of middleware. Well-known icon/manifest
+  // paths are listed so desk/go can rewrite Cohort leftovers.
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|service-worker.js|manifest.json|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|service-worker.js|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/favicon.ico',
+    '/favicon.svg',
+    '/apple-touch-icon.png',
+    '/apple-touch-icon-precomposed.png',
+    '/favicon-96x96.png',
+    '/manifest.json',
   ],
 };
