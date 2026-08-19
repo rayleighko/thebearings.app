@@ -71,7 +71,8 @@ const DEV_ITEMS: Item[] = [
     price: '3만 원대',
     slug: 'stand-laptop',
     productUrl: 'https://link.coupang.com/a/gi6MkDloqW',
-    img: '/desk/dev/stand-laptop.png',
+    // rembg cutout is already cropped at the plate corners. Card uses the official thumb.
+    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/8604239937395705-2fe01d34-70d0-4224-9e48-265326f123b3.jpg',
     x: 22,
     y: 58,
     w: 22,
