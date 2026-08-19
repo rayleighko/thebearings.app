@@ -3,6 +3,7 @@ import {
   CONCEPTS,
   DESK_FEATURED_SLUG,
   DEV_OFFICIAL_CDN_THUMBS,
+  SLUG_ALIASES,
   getSlugTarget,
   listPublishedConcepts,
   orderDeskItems,
@@ -39,15 +40,15 @@ describe('concepts catalog', () => {
   });
 
   it('keeps official Coupang CDN thumbs as rembg source pixels', () => {
-    const slugs = (CONCEPTS.find((c) => c.slug === 'dev')?.items ?? []).map(
-      (i) => i.slug,
+    const ids = (CONCEPTS.find((c) => c.slug === 'dev')?.items ?? []).map(
+      (i) => i.id,
     );
-    expect(Object.keys(DEV_OFFICIAL_CDN_THUMBS).sort()).toEqual([...slugs].sort());
-    for (const slug of slugs) {
-      expect(DEV_OFFICIAL_CDN_THUMBS[slug]).toMatch(
+    expect(Object.keys(DEV_OFFICIAL_CDN_THUMBS).sort()).toEqual([...ids].sort());
+    for (const id of ids) {
+      expect(DEV_OFFICIAL_CDN_THUMBS[id]).toMatch(
         /^https:\/\/thumbnail\.coupangcdn\.com\//,
       );
-      expect(DEV_OFFICIAL_CDN_THUMBS[slug]).not.toMatch(/link\.coupang\.com/);
+      expect(DEV_OFFICIAL_CDN_THUMBS[id]).not.toMatch(/link\.coupang\.com/);
     }
     expect(DEV_OFFICIAL_CDN_THUMBS['stand-laptop']).not.toBe(
       DEV_OFFICIAL_CDN_THUMBS['lamp-screenbar'],
@@ -59,16 +60,25 @@ describe('concepts catalog', () => {
       (CONCEPTS.find((c) => c.slug === 'dev')?.items ?? []).map((i) => [i.slug, i]),
     );
 
-    for (const slug of ['arm-nb-f80', 'stand-laptop', 'kbd-keychron-k8', 'mouse-mx-master']) {
+    for (const slug of ['arm-nb-f80', 'stand-laptop', 'kbd-keychron-k8']) {
       expect(bySlug[slug]?.img).toBe(`/desk/dev/${slug}.png`);
     }
     expect(bySlug['lamp-screenbar']?.img).toBe(DEV_OFFICIAL_CDN_THUMBS['lamp-screenbar']);
-    // Card label is AG100; slug/img filename stay mouse-mx-master.
-    // productUrl is still the old MX Master Partners deeplink until Rayleigh pastes AG100.
-    expect(bySlug['mouse-mx-master']?.name).toBe('마우스 AG100');
-    expect(bySlug['mouse-mx-master']?.productUrl).toBe(
+    expect(bySlug['mouse-ag100']?.name).toBe('마우스 AG100');
+    expect(bySlug['mouse-ag100']?.id).toBe('mouse-mx-master');
+    expect(bySlug['mouse-ag100']?.img).toBe('/desk/dev/mouse-mx-master.png');
+    expect(bySlug['mouse-ag100']?.productUrl).toBe(
       'https://link.coupang.com/a/gi79m3yxFY',
     );
+  });
+
+  it('keeps mouse-mx-master as a go alias to the AG100 dest', () => {
+    const canonical = getSlugTarget('mouse-ag100');
+    const alias = getSlugTarget('mouse-mx-master');
+    expect(SLUG_ALIASES['mouse-mx-master']).toBe('mouse-ag100');
+    expect(canonical?.productUrl).toBe('https://link.coupang.com/a/gi79m3yxFY');
+    expect(alias?.productUrl).toBe(canonical?.productUrl);
+    expect(alias?.slug).toBe('mouse-ag100');
   });
 
   it('does not pin a featured SKU without video search params', () => {

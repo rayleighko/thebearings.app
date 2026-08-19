@@ -1,5 +1,6 @@
 /**
  * English Pexels Videos search queries for published `dev` desk SKUs.
+ * Keys are catalog ids (`item.id`), not public go slugs.
  *
  * Korean targeting belongs in captions later. Do not scrape KR-creator files
  * or search non-licensed platforms for B-roll.

@@ -63,7 +63,7 @@ Cohort(투자 페이스)와 섞지 말 것. 이 줄은 데스크 제휴 숏폼 +
 | `lamp-screenbar` | 스크린바 | `https://link.coupang.com/a/gi7YPbNxdY` |
 | `stand-laptop` | 노트북 스탠드 | `https://link.coupang.com/a/gi6MkDloqW` |
 | `kbd-keychron-k8` | 키보드 | `https://link.coupang.com/a/gi61Ks22XA` |
-| `mouse-mx-master` | 마우스 AG100 | ⚠ still MX Master `https://link.coupang.com/a/gi79m3yxFY` — paste AG100 Partners URL |
+| `mouse-ag100` | 마우스 AG100 (box AG010 / listing AG0101) | `https://link.coupang.com/a/gi79m3yxFY` (already ATWO AG010). Alias: `mouse-mx-master` |
 
 네이버 F80 검정 (1·2편): `https://naver.me/5K6ntkF6`. 스크린바용 `naver.me`는 운영자가 커넥트에서 발급.
 
