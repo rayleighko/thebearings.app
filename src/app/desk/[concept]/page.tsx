@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { DeskChrome } from '@/components/desk/DeskChrome';
 import { DeskProductCards } from '@/components/desk/DeskProductCards';
 import { JsonLd } from '@/components/desk/JsonLd';
 import {
   CONCEPTS,
+  deskVideoQueryString,
   getConcept,
   orderDeskItems,
   resolveDeskFeaturedSlug,
 } from '@/data/concepts';
 import { deskItemListJsonLd, publicOriginForHost } from '@/lib/desk/seo';
-import { deskChromeHrefs, deskConceptHref } from '@/lib/desk/urls';
+import { deskChromeHrefs, deskConceptHref, deskIndexHref } from '@/lib/desk/urls';
 
 type PageProps = {
   params: Promise<{ concept: string }>;
@@ -28,6 +29,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { concept: slug } = await params;
+  if (slug === 'dev') {
+    return {
+      title: { absolute: '책상 물건 — 살까말까 연구소' },
+      alternates: { canonical: '/' },
+    };
+  }
   const concept = getConcept(slug);
   if (!concept) {
     return { title: { absolute: '살까말까 연구소' } };
@@ -42,12 +49,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DeskConceptPage({ params, searchParams }: PageProps) {
   const { concept: slug } = await params;
+  const query = await searchParams;
+  if (slug === 'dev') {
+    const host = (await headers()).get('host') ?? '';
+    permanentRedirect(`${deskIndexHref(host)}${deskVideoQueryString(query)}`);
+  }
   const concept = getConcept(slug);
   if (!concept) {
     notFound();
   }
   const host = (await headers()).get('host') ?? '';
-  const query = await searchParams;
   const featuredSlug = resolveDeskFeaturedSlug(concept.items, query);
   const items = orderDeskItems(concept.items, featuredSlug);
   const { homeHref, shopHref, blogHref } = deskChromeHrefs(host);

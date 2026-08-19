@@ -7,6 +7,7 @@ import {
   getSlugTarget,
   listPublishedConcepts,
   orderDeskItems,
+  deskVideoQueryString,
   resolveDeskFeaturedSlug,
 } from '@/data/concepts';
 
@@ -36,7 +37,16 @@ describe('concepts catalog', () => {
 
   it('publishes at least the dev concept with 5 items', () => {
     const dev = CONCEPTS.find((c) => c.slug === 'dev');
+    expect(dev?.title).toBe('책상 물건');
     expect(dev?.items).toHaveLength(5);
+  });
+
+  it('keeps video query on /dev → apex redirect', () => {
+    expect(deskVideoQueryString({})).toBe('');
+    expect(deskVideoQueryString({ v: 'lamp-screenbar' })).toBe('?v=lamp-screenbar');
+    expect(deskVideoQueryString({ from: 'video', sku: 'arm-nb-f80' })).toBe(
+      '?from=video&sku=arm-nb-f80',
+    );
   });
 
   it('keeps official Coupang CDN thumbs as rembg source pixels', () => {
