@@ -50,19 +50,21 @@ export function DeskProductCards({
                     : 'border-cohort-ink-10'
                 }`}
               >
-                <div className="relative aspect-square w-full bg-cohort-ivory p-4">
+                <div className="relative aspect-square w-full bg-cohort-ivory">
                   {featured ? (
                     <span className="absolute left-3 top-3 z-10 rounded-md bg-cohort-charcoal px-2 py-1 text-xs font-medium text-white">
                       이 영상
                     </span>
                   ) : null}
-                  <Image
-                    src={item.img}
-                    alt=""
-                    fill
-                    sizes="(max-width: 640px) 100vw, 320px"
-                    className="object-contain p-2"
-                  />
+                  <div className="absolute inset-4">
+                    <Image
+                      src={item.img}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 100vw, 320px"
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
                   <span className="text-base font-medium text-cohort-ink-90">{item.name}</span>

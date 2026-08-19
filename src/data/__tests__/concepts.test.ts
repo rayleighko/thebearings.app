@@ -65,15 +65,16 @@ describe('concepts catalog', () => {
     );
   });
 
-  it('points published dev overlays at local rembg cutouts except clipped screenbar', () => {
+  it('points published dev overlays at local rembg cutouts except clipped thumbs', () => {
     const bySlug = Object.fromEntries(
       (CONCEPTS.find((c) => c.slug === 'dev')?.items ?? []).map((i) => [i.slug, i]),
     );
 
-    for (const slug of ['arm-nb-f80', 'stand-laptop', 'kbd-keychron-k8']) {
+    for (const slug of ['arm-nb-f80', 'kbd-keychron-k8']) {
       expect(bySlug[slug]?.img).toBe(`/desk/dev/${slug}.png`);
     }
     expect(bySlug['lamp-screenbar']?.img).toBe(DEV_OFFICIAL_CDN_THUMBS['lamp-screenbar']);
+    expect(bySlug['stand-laptop']?.img).toBe(DEV_OFFICIAL_CDN_THUMBS['stand-laptop']);
     expect(bySlug['mouse-ag100']?.name).toBe('마우스 AG100');
     expect(bySlug['mouse-ag100']?.id).toBe('mouse-mx-master');
     expect(bySlug['mouse-ag100']?.img).toBe('/desk/dev/mouse-mx-master.png');
