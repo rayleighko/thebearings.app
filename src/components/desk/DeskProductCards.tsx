@@ -1,21 +1,32 @@
 import Image from 'next/image';
 import type { Item } from '@/data/concepts';
-import { DESK_FEATURED_SLUG } from '@/data/concepts';
 import { AFFILIATE_REL, getAffiliateHref } from '@/lib/desk/urls';
 
 type DeskProductCardsProps = {
   items: Item[];
   heading: string;
+  /** Set only from explicit video search params. Bare catalog has no chip. */
   featuredSlug?: string;
 };
 
 /**
- * Shoppable product cards — visible HTML links for SEO and affiliate compliance.
+ * DeskProductCards
+ *
+ * Tokens sourced (per cohort-token-keeper):
+ * - Colors: text-cohort-ink-90/70/50, bg-cohort-ivory, border-cohort-ink-10,
+ *   border-cohort-charcoal (42-typography-color-system §2.1)
+ * - Typography: text-lg / text-base / text-sm / text-xs (42 §1.2)
+ * - Spacing: mt-8, gap-4, p-4 (42 §3.1)
+ * - Radius: rounded-xl / rounded-md
+ *
+ * Mobile-first: 1-col default, sm: 2-col
+ * Touch target: min-h-[44px] per 40-design-system §5.2
+ * Korean text: break-keep (42 §1.5)
  */
 export function DeskProductCards({
   items,
   heading,
-  featuredSlug = DESK_FEATURED_SLUG,
+  featuredSlug,
 }: DeskProductCardsProps) {
   if (items.length === 0) return null;
 
@@ -26,7 +37,7 @@ export function DeskProductCards({
       </h2>
       <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {items.map((item) => {
-          const featured = item.id === featuredSlug;
+          const featured = Boolean(featuredSlug) && item.id === featuredSlug;
           return (
             <li key={item.id}>
               <a
@@ -55,7 +66,6 @@ export function DeskProductCards({
                 </div>
                 <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
                   <span className="text-base font-medium text-cohort-ink-90">{item.name}</span>
-                  <span className="mt-1 text-sm text-cohort-ink-50">{item.price}</span>
                   <span className="mt-3 text-sm font-medium text-cohort-ink-70">쿠팡에서 보기 →</span>
                 </div>
               </a>

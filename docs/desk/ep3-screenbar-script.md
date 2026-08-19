@@ -1,6 +1,6 @@
 # Episode 3 script — `lamp-screenbar`
 
-SKU를 바꾼다. 암 3편째가 아님. **보이스만 받아 둠. 렌더·업로드는 내일.**
+SKU를 바꾼다. 암 3편째가 아님. VO는 받아 둠. 렌더 스크립트는 아직 없음(`render-ep2.ts` 복제). 전체 맥락: `docs/desk/GROK-HANDOFF.md`.
 
 VO: `content/desk/uploads/03-lamp-screenbar/vo.wav` (9.3초)
 

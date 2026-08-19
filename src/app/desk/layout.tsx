@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 
 const TITLE = '살까말까 연구소';
 const DESCRIPTION =
@@ -28,6 +29,16 @@ export const metadata: Metadata = {
   manifest: '/desk.webmanifest',
 };
 
+/**
+ * Desk/go hosts skip root PostHogProvider (Cohort-only). Vercel Web Analytics
+ * needs no extra key and is enough for desk.thebearings.app pageviews.
+ * go.thebearings.app hops stay on Supabase `clicks`.
+ */
 export default function DeskLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      {children}
+      <Analytics />
+    </>
+  );
 }

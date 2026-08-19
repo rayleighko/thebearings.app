@@ -1,5 +1,7 @@
 # Desk shortform 업로드 큐
 
+다른 에이전트(그록)는 먼저 `docs/desk/GROK-HANDOFF.md` 를 읽는다.
+
 `tmp/`가 아니다. 여기가 **올릴 파일**의 위치다.
 
 렌더·스톡·rembg 작업은 `tmp/desk-stock/`에 남긴다. 다 되면 이 폴더의 `NN-sku/`로만 복사한다. `tmp`는 지우지 않는다.
