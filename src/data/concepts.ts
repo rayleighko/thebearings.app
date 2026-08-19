@@ -90,14 +90,13 @@ const DEV_ITEMS: Item[] = [
     z: 4,
   },
   {
-    // Catalog SKU is AG100 (photo/box). id/slug stay `mouse-mx-master` so
-    // go.thebearings.app/mouse-mx-master keeps working.
+    // Rayleigh name AG100. Box AG010 / listing AG0101.
+    // id/img stay mouse-mx-master (cutout filename). Public go slug is mouse-ag100.
+    // Partners URL already lands on ATWO AG010 — keep it.
     id: 'mouse-mx-master',
     name: '마우스 AG100',
     price: '8만 원대',
-    slug: 'mouse-mx-master',
-    // TODO(rayleigh): productUrl is still the old MX Master Partners deeplink.
-    // Paste the AG100 Coupang Partners link here. Do not invent or scrape one.
+    slug: 'mouse-ag100',
     productUrl: 'https://link.coupang.com/a/gi79m3yxFY',
     img: '/desk/dev/mouse-mx-master.png',
     x: 74,
@@ -158,6 +157,14 @@ export type SlugTarget = {
   productUrl: string;
 };
 
+/**
+ * Retired public slugs that still 302 to the same Coupang dest.
+ * Do not 404 these — old desk cards / caches still hit them.
+ */
+export const SLUG_ALIASES: Record<string, string> = {
+  'mouse-mx-master': 'mouse-ag100',
+};
+
 /** Flattened slug → Coupang URL map. First concept wins if a slug is reused. */
 export const SLUG_TARGETS: Record<string, SlugTarget> = (() => {
   const map: Record<string, SlugTarget> = {};
@@ -169,6 +176,12 @@ export const SLUG_TARGETS: Record<string, SlugTarget> = (() => {
         concept: concept.slug,
         productUrl: item.productUrl,
       };
+    }
+  }
+  for (const [alias, canonical] of Object.entries(SLUG_ALIASES)) {
+    const target = map[canonical];
+    if (target && !map[alias]) {
+      map[alias] = target;
     }
   }
   return map;

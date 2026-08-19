@@ -77,4 +77,21 @@ describe('GET /go/[slug]', () => {
     expect(res.status).toBe(302);
     expect(res.headers.get('location')).toBe(target!.productUrl);
   });
+
+  it('302s mouse-ag100 and the legacy mouse-mx-master alias to the same dest', async () => {
+    const target = getSlugTarget('mouse-ag100');
+    expect(target?.productUrl).toBe('https://link.coupang.com/a/gi79m3yxFY');
+
+    const canonical = await GET(makeRequest('/go/mouse-ag100'), {
+      params: Promise.resolve({ slug: 'mouse-ag100' }),
+    });
+    const alias = await GET(makeRequest('/go/mouse-mx-master'), {
+      params: Promise.resolve({ slug: 'mouse-mx-master' }),
+    });
+
+    expect(canonical.status).toBe(302);
+    expect(alias.status).toBe(302);
+    expect(canonical.headers.get('location')).toBe(target!.productUrl);
+    expect(alias.headers.get('location')).toBe(target!.productUrl);
+  });
 });
