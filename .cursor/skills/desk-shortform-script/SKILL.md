@@ -23,7 +23,7 @@ Do not skip `vo.gender` or `picture.hookGender`. Never put pause tokens in the p
 | On-screen `[광고]` | never |
 | Caption / sticker | One 9:16 master. Captions sit 720px from the bottom; SKU sticker 800px. Clears Naver Shopping Connect product card + YouTube Shorts chrome. Do **not** export a second ratio or a Naver-only cut. |
 | Logo / AE sting | never (before ep 6) |
-| CTA | last line `링크는 댓글에 있어요.` **Publish is not done until that platform's comment exists.** YouTube pinned = Coupang. Naver comment = `naver.me` (same SKU). Never mix. |
+| CTA | Shipped ep1–3: `링크는 댓글에 있어요.` Next ep: `프로필에 목록 있어요.` YouTube Shorts description/comment URLs are **not clickable** (Help). Profile = `desk.thebearings.app/dev`. Naver click surface = Shopping Connect card. Keep Coupang URL in YT description for disclosure. Never mix Coupang + Naver checkout in one video. |
 | YouTube link | `youtube.productUrl` Coupang deeplink |
 | Naver link | Brand Connect / Shopping Connect attach + the same `naver.me` in the Clip comment |
 | `youtube.category` | `노하우 및 스타일` |
@@ -48,7 +48,7 @@ Four lines are a **sales loop**, not a finished tip. If line 3 already solves it
 | 1 | 자기인식 | 이 책상에서 매일 하는 통증. SKU가 떠오르게 | 일반 상식 질문만, 다른 물건 미끼 |
 | 2 | 잘못된 처방 | 이미 해본 틀린 해결 (의자만, 천장 불만) | 스펙, 가격 |
 | 3 | 열린 고리 | SKU를 **이름으로** 가리키되, 다는 위치/고르는 기준 하나는 댓글에 남김 | “바만 달면 해결”처럼 결론을 닫기 |
-| 4 | CTA | `링크는 댓글에 있어요.` | `지금 사세요`, `한정`, `꼭 사야`, `추천` |
+| 4 | CTA | 다음 편 `프로필에 목록 있어요.` | `지금 사세요`, `한정`, `꼭 사야`, `추천`, 쇼츠 댓글이 클릭된다고 가정 |
 
 Ban on-camera: 공포 과장, 가짜 리뷰, 진화심리 설명, 최저가. 신뢰는 `[광고]` + 댓글 링크로.
 
