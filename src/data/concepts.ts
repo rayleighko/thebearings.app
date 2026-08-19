@@ -58,7 +58,8 @@ const DEV_ITEMS: Item[] = [
     price: '5만 원대',
     slug: 'lamp-screenbar',
     productUrl: 'https://link.coupang.com/a/gi7YPbNxdY',
-    img: '/desk/dev/lamp-screenbar.png',
+    // rembg u2net clips the bar and leaves the V-clamp. Card uses the official thumb.
+    img: 'https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/162502830181035-1a21fc21-ba28-4766-b014-23ffdb407a20.jpg',
     x: 50,
     y: 28,
     w: 30,
@@ -89,10 +90,14 @@ const DEV_ITEMS: Item[] = [
     z: 4,
   },
   {
+    // Catalog SKU is AG100 (photo/box). id/slug stay `mouse-mx-master` so
+    // go.thebearings.app/mouse-mx-master keeps working.
     id: 'mouse-mx-master',
-    name: '마우스',
+    name: '마우스 AG100',
     price: '8만 원대',
     slug: 'mouse-mx-master',
+    // TODO(rayleigh): productUrl is still the old MX Master Partners deeplink.
+    // Paste the AG100 Coupang Partners link here. Do not invent or scrape one.
     productUrl: 'https://link.coupang.com/a/gi79m3yxFY',
     img: '/desk/dev/mouse-mx-master.png',
     x: 74,
@@ -181,13 +186,40 @@ export function listPublishedConcepts(): Concept[] {
   return CONCEPTS.filter((c) => c.items.length > 0);
 }
 
-/** Shorts traffic SKU — shown first on list-first concept pages. */
+/** Known Shorts SKU. Do not pin it unless video search params name it. */
 export const DESK_FEATURED_SLUG = 'arm-nb-f80';
 
-export function orderDeskItems(
+export type DeskVideoSearchParams = {
+  v?: string | string[];
+  from?: string | string[];
+  sku?: string | string[];
+};
+
+function firstSearchParam(
+  value: string | string[] | undefined,
+): string | undefined {
+  const raw = Array.isArray(value) ? value[0] : value;
+  const trimmed = raw?.trim();
+  return trimmed ? trimmed : undefined;
+}
+
+/** Video context only (`?v=` or `?from=video&sku=`). Bare /dev has no featured SKU. */
+export function resolveDeskFeaturedSlug(
   items: Item[],
-  featuredSlug: string = DESK_FEATURED_SLUG,
-): Item[] {
+  searchParams: DeskVideoSearchParams,
+): string | undefined {
+  const fromVideo = firstSearchParam(searchParams.v);
+  const fromFlag =
+    firstSearchParam(searchParams.from) === 'video'
+      ? firstSearchParam(searchParams.sku)
+      : undefined;
+  const candidate = fromVideo ?? fromFlag;
+  if (!candidate) return undefined;
+  return items.some((item) => item.id === candidate) ? candidate : undefined;
+}
+
+export function orderDeskItems(items: Item[], featuredSlug?: string): Item[] {
+  if (!featuredSlug) return items;
   const featured = items.find((item) => item.id === featuredSlug);
   if (!featured) return items;
   return [featured, ...items.filter((item) => item.id !== featuredSlug)];

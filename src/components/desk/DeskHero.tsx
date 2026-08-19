@@ -5,7 +5,7 @@ type DeskHeroProps = {
   alt: string;
 };
 
-/** Desk photo header only — no product overlays or hotspots. */
+/** Optional desk photo. Concept pages omit this until there is a real operator photo. */
 export function DeskHero({ src, alt }: DeskHeroProps) {
   return (
     <div className="relative mt-6 aspect-[4/3] w-full overflow-hidden rounded-xl bg-cohort-ink-10">

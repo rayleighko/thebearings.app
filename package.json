@@ -19,7 +19,8 @@
     "desk:render-ep1": "npx --yes tsx scripts/desk/render-short.ts",
     "desk:typecast-tts": "npx --yes tsx scripts/desk/typecast-tts.ts",
     "desk:print-script": "npx --yes tsx scripts/desk/print-shortform-script.ts",
-    "desk:render-ep2": "npx --yes tsx scripts/desk/render-ep2.ts"
+    "desk:render-ep2": "npx --yes tsx scripts/desk/render-ep2.ts",
+    "desk:render-ep3": "npx --yes tsx scripts/desk/render-ep3.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.2",
@@ -31,6 +32,7 @@
     "@sentry/nextjs": "^10.58.0",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.108.2",
+    "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.18.0",
