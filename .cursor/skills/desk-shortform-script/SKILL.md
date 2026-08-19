@@ -39,6 +39,21 @@ Do not skip `vo.gender` or `picture.hookGender`. Never put pause tokens in the p
 
 Custom Typecast emotions (기쁨/슬픔/높은 톤 등) are off unless the user asks. 일반 is the lock.
 
+## Line jobs (next episode onward — ep1–3 stay as shipped)
+
+Four lines are a **sales loop**, not a finished tip. If line 3 already solves it, the comment is optional and the clip feels like “지나가는 영상”.
+
+| Line | Job | Do | Do not |
+|---|---|---|---|
+| 1 | 자기인식 | 이 책상에서 매일 하는 통증. SKU가 떠오르게 | 일반 상식 질문만, 다른 물건 미끼 |
+| 2 | 잘못된 처방 | 이미 해본 틀린 해결 (의자만, 천장 불만) | 스펙, 가격 |
+| 3 | 열린 고리 | SKU를 **이름으로** 가리키되, 다는 위치/고르는 기준 하나는 댓글에 남김 | “바만 달면 해결”처럼 결론을 닫기 |
+| 4 | CTA | `링크는 댓글에 있어요.` | `지금 사세요`, `한정`, `꼭 사야`, `추천` |
+
+Ban on-camera: 공포 과장, 가짜 리뷰, 진화심리 설명, 최저가. 신뢰는 `[광고]` + 댓글 링크로.
+
+AI 느낌의 큰 축은 대본이 아니라 **Pexels + Typecast**. 다음 편에서 운영자 책상 5초가 있으면 그록은 그걸 첫 클립으로 쓴다. 없으면 스톡이어도 라인 3은 닫지 말 것.
+
 ## Quality gates
 
 1. One SKU pain point. No 알루미늄 / 가스스프링 / 최저가.
@@ -47,6 +62,7 @@ Custom Typecast emotions (기쁨/슬픔/높은 톤 등) are off unless the user 
 4. Product visible by ~5s.
 5. Captions = VO lines 1:1.
 6. `picture.hookGender` required, independent from VO.
+7. Line 3 must not fully resolve the pain (open loop). Ep1–3 are grandfathered.
 
 ## Paste shape (script field only)
 
