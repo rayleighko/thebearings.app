@@ -13,8 +13,8 @@ describe('desk stock queries', () => {
     expect(dev?.items.length).toBeGreaterThan(0);
 
     for (const item of dev!.items) {
-      const queries = queriesForSku(item.slug);
-      expect(queries, item.slug).toBeDefined();
+      const queries = queriesForSku(item.id);
+      expect(queries, item.id).toBeDefined();
       expect(queries!.length).toBeGreaterThanOrEqual(2);
       expect(queries!.length).toBeLessThanOrEqual(12);
       for (const query of queries!) {
@@ -34,10 +34,10 @@ describe('desk stock queries', () => {
 
   it('does not keep queries for unpublished slugs', () => {
     const published = new Set(
-      (getConcept(DEV_STOCK_CONCEPT)?.items ?? []).map((item) => item.slug),
+      (getConcept(DEV_STOCK_CONCEPT)?.items ?? []).map((item) => item.id),
     );
-    for (const slug of Object.keys(DEV_STOCK_QUERIES)) {
-      expect(published.has(slug)).toBe(true);
+    for (const sku of Object.keys(DEV_STOCK_QUERIES)) {
+      expect(published.has(sku)).toBe(true);
     }
   });
 });
