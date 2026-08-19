@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
   buildRobotsForHost,
@@ -13,7 +15,7 @@ describe('host-aware sitemap', () => {
     expect(urls).toContain('https://desk.thebearings.app/');
     expect(urls).toContain('https://desk.thebearings.app/dev');
     expect(urls).toContain('https://desk.thebearings.app/blog');
-    expect(urls).toContain('https://desk.thebearings.app/blog/preparing');
+    expect(urls).not.toContain('https://desk.thebearings.app/blog/preparing');
     expect(urls.every((url) => !url.includes('?'))).toBe(true);
     expect(urls.every((url) => !url.includes('go.thebearings.app'))).toBe(true);
     expect(urls).not.toContain('https://desk.thebearings.app/minimal');
@@ -38,6 +40,12 @@ describe('host-aware sitemap', () => {
       'https://www.thebearings.app/privacy',
       'https://www.thebearings.app/terms',
     ]);
+    expect(urls).not.toContain('https://www.thebearings.app/regime');
+  });
+
+  it('does not redirect apex/www / to /regime', () => {
+    const src = fs.readFileSync(path.join(process.cwd(), 'next.config.mjs'), 'utf8');
+    expect(src).not.toMatch(/destination:\s*'\/regime'/);
   });
 
   it('does not rewrite Cohort hosts onto desk URLs', () => {

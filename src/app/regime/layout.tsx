@@ -81,6 +81,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [OG_IMAGE],
   },
+  robots: { index: false, follow: true },
 };
 
 export default function RegimeLayout({

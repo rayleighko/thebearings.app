@@ -25,14 +25,16 @@ export default async function NotFound() {
 
   const homeHref =
     isBearingsPublicHost(host)
-      ? '/regime'
+      ? '/'
       : isPreviewOrLocalHost(host)
         ? '/desk'
         : '/';
 
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-6 py-16 text-center">
-      <p className="text-sm text-cohort-ink-50">The Bearings</p>
+      <p className="text-sm text-cohort-ink-70">
+        {isBearingsPublicHost(host) ? '살까말까 연구소' : 'The Bearings'}
+      </p>
       <h1 className="mt-2 text-2xl font-bold text-cohort-charcoal">
         페이지를 찾을 수 없어요
       </h1>

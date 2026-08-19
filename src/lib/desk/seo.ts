@@ -1,6 +1,6 @@
 import type { Metadata, MetadataRoute } from 'next';
 import { listPublishedConcepts, type Item } from '@/data/concepts';
-import { listDeskBlogPosts } from '@/lib/desk/blog';
+import { listIndexableDeskBlogPosts } from '@/lib/desk/blog';
 import {
   isBearingsPublicHost,
   isCohortArchiveHost,
@@ -88,7 +88,7 @@ export function buildDeskSitemap(
     priority: 0.5,
   });
 
-  for (const post of listDeskBlogPosts()) {
+  for (const post of listIndexableDeskBlogPosts()) {
     entries.push({
       url: absoluteUrl(origin, deskBlogPostHref(hostHeader, post.slug)),
       lastModified: new Date(post.date),

@@ -2,10 +2,17 @@ import type { Metadata } from 'next';
 
 export const DESK_BRAND_NAME = '살까말까 연구소';
 export const DESK_BRAND_DESCRIPTION =
-  '책상 위 물건을 탭하면 제품 정보와 구매 링크가 열립니다. 쿠팡 파트너스 활동의 일환입니다.';
+  '책상에서 직접 쓰는 물건만 모읍니다. 살까 말까를 적어 두는 연구소입니다.';
+export const DESK_ABOUT =
+  '책상에서 직접 쓰는 물건만 모읍니다. 살까 말까를 적어 두는 연구소입니다.';
+export const DESK_YOUTUBE_HREF = 'https://www.youtube.com/@sal-kka-lab';
+export const DESK_YOUTUBE_HANDLE = '@sal-kka-lab';
+export const DESK_YOUTUBE_LABEL = '살까말까 연구소';
 
-/** Channel mark — full wordmark. Used for in-page chrome and default OG. */
+/** Channel mark — scale + wordmark lockup. Used for in-page chrome and default OG. */
 export const DESK_LOGO_SRC = '/desk/logo.png';
+export const DESK_LOGO_WIDTH = 1024;
+export const DESK_LOGO_HEIGHT = 1024;
 
 export const DESK_ICONS: NonNullable<Metadata['icons']> = {
   icon: [
@@ -24,7 +31,14 @@ export const DESK_OPEN_GRAPH: NonNullable<Metadata['openGraph']> = {
   siteName: DESK_BRAND_NAME,
   locale: 'ko_KR',
   type: 'website',
-  images: [{ url: DESK_LOGO_SRC, alt: DESK_BRAND_NAME }],
+  images: [
+    {
+      url: DESK_LOGO_SRC,
+      alt: DESK_BRAND_NAME,
+      width: DESK_LOGO_WIDTH,
+      height: DESK_LOGO_HEIGHT,
+    },
+  ],
 };
 
 export const DESK_TWITTER: NonNullable<Metadata['twitter']> = {

@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { DeskBrand } from '@/components/desk/DeskBrand';
+import { DeskChrome } from '@/components/desk/DeskChrome';
 import { JsonLd } from '@/components/desk/JsonLd';
 import { getDeskBlogPost, listDeskBlogPosts } from '@/lib/desk/blog';
 import { deskBlogPostingJsonLd, DESK_PUBLIC_ORIGIN, publicOriginForHost } from '@/lib/desk/seo';
-import { deskBlogHref, deskBlogPostHref, deskIndexHref } from '@/lib/desk/urls';
+import { deskBlogPostHref, deskChromeHrefs } from '@/lib/desk/urls';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -60,6 +60,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: { absolute: `${post.title} — 살까말까 연구소` },
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}` },
+    robots: post.indexable ? undefined : { index: false, follow: true },
   };
 }
 
@@ -72,39 +73,25 @@ export default async function DeskBlogPostPage({ params }: PageProps) {
   const host = (await headers()).get('host') ?? '';
   const origin = publicOriginForHost(host);
   const pageUrl = `${origin}${deskBlogPostHref(host, post.slug)}`;
+  const { homeHref, shopHref, blogHref } = deskChromeHrefs(host);
 
   return (
-    <main className="mx-auto min-h-screen max-w-xl break-keep bg-cohort-ivory px-5 py-10 text-cohort-ink-90">
-      <JsonLd
-        data={deskBlogPostingJsonLd({
-          headline: post.title,
-          description: post.description,
-          datePublished: post.date,
-          url: pageUrl.startsWith('http') ? pageUrl : `${DESK_PUBLIC_ORIGIN}/blog/${post.slug}`,
-        })}
-      />
-      <header>
-        <DeskBrand href={deskIndexHref(host)} />
-      </header>
-      <nav className="mt-2 flex flex-wrap gap-x-4">
-        <Link
-          href={deskIndexHref(host)}
-          className="inline-flex min-h-[44px] items-center text-sm text-cohort-ink-50 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
-        >
-          책상 물건
-        </Link>
-        <Link
-          href={deskBlogHref(host)}
-          className="inline-flex min-h-[44px] items-center text-sm text-cohort-ink-50 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
-        >
-          모든 글
-        </Link>
-      </nav>
+    <DeskChrome homeHref={homeHref} shopHref={shopHref} blogHref={blogHref} current="blog">
+      {post.indexable ? (
+        <JsonLd
+          data={deskBlogPostingJsonLd({
+            headline: post.title,
+            description: post.description,
+            datePublished: post.date,
+            url: pageUrl.startsWith('http') ? pageUrl : `${DESK_PUBLIC_ORIGIN}/blog/${post.slug}`,
+          })}
+        />
+      ) : null}
       <article>
-        <h1 className="mt-6 text-2xl font-semibold">{post.title}</h1>
-        <p className="mt-2 text-sm text-cohort-ink-50">{post.date}</p>
+        <h1 className="mt-8 text-2xl font-semibold">{post.title}</h1>
+        <p className="mt-2 text-sm text-cohort-ink-70">{post.date}</p>
         {renderBlogParagraphs(post.body)}
       </article>
-    </main>
+    </DeskChrome>
   );
 }
