@@ -32,9 +32,15 @@ const HIDE_FOOTER_PREFIXES = [
   '/go',
 ];
 
-export function ConditionalFooter() {
+type ConditionalFooterProps = {
+  /** www/apex `/` uses DeskChrome; do not hide Cohort `/`. */
+  hideOnHome?: boolean;
+};
+
+export function ConditionalFooter({ hideOnHome = false }: ConditionalFooterProps) {
   const pathname = usePathname();
   if (!pathname) return <Footer />;
+  if (hideOnHome && pathname === '/') return null;
   if (HIDE_FOOTER_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
     return null;
   }

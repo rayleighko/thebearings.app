@@ -24,18 +24,6 @@ import { DESK_NAVER_SITE_VERIFICATION, deskVerificationMetadata } from '@/lib/de
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Cohort';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://cohort.co.kr';
 
-const BEARINGS_ICONS: NonNullable<Metadata['icons']> = {
-  icon: [
-    { url: '/bearings/favicon.ico', sizes: 'any' },
-    { url: '/bearings/favicon-16.png', type: 'image/png', sizes: '16x16' },
-    { url: '/bearings/favicon-32.png', type: 'image/png', sizes: '32x32' },
-    { url: '/bearings/favicon-48.png', type: 'image/png', sizes: '48x48' },
-    { url: '/bearings/icon-192.png', type: 'image/png', sizes: '192x192' },
-    { url: '/bearings/icon-512.png', type: 'image/png', sizes: '512x512' },
-  ],
-  apple: { url: '/bearings/apple-touch-icon.png', sizes: '180x180' },
-};
-
 const cohortMetadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
@@ -64,19 +52,20 @@ const cohortMetadata: Metadata = {
 const bearingsMetadata: Metadata = {
   metadataBase: new URL('https://www.thebearings.app'),
   title: {
-    default: 'The Bearings',
-    template: '%s · The Bearings',
+    default: DESK_BRAND_NAME,
+    template: '%s',
   },
-  description:
-    'Portfolio regime check and desk product pages. Waitlist stays at /waitlist.',
-  applicationName: 'The Bearings',
-  manifest: '/bearings.webmanifest',
-  icons: BEARINGS_ICONS,
+  description: DESK_BRAND_DESCRIPTION,
+  applicationName: DESK_BRAND_NAME,
+  manifest: '/desk.webmanifest',
+  icons: DESK_ICONS,
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'The Bearings',
+    title: DESK_BRAND_NAME,
   },
+  openGraph: DESK_OPEN_GRAPH,
+  twitter: DESK_TWITTER,
 };
 
 const deskGoMetadata: Metadata = {
@@ -104,7 +93,7 @@ const deskGoMetadata: Metadata = {
  * 8.0+ App Router pattern.
  *
  * Host branching: desk/go never inherit Cohort title/manifest; apex/www use
- * The Bearings chrome. Vercel preview + localhost use desk metadata so we
+ * 살까말까 연구소 chrome. Vercel preview + localhost use desk metadata so we
  * validate the desk surface, not the archived Cohort landing.
  */
 export async function generateMetadata(): Promise<Metadata> {
@@ -146,9 +135,14 @@ export default async function RootLayout({
 }) {
   const host = (await headers()).get('host') ?? '';
   const deskOrGo = isDeskOrGoHost(host);
+  const bearingsPublic = isBearingsPublicHost(host);
 
   return (
     <html lang="ko">
+      <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+      </head>
       {/* suppressHydrationWarning: browser extensions (e.g. ColorZilla's
           cz-shortcut-listen) mutate <body> before React hydrates — benign,
           but floods the dev console with hydration-mismatch warnings. */}
@@ -162,7 +156,7 @@ export default async function RootLayout({
           <PostHogProvider>
             <div className="flex min-h-screen flex-col">
               <div className="flex-1">{children}</div>
-              <ConditionalFooter />
+              <ConditionalFooter hideOnHome={bearingsPublic} />
             </div>
             <ServiceWorkerRegister />
           </PostHogProvider>

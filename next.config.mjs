@@ -28,31 +28,14 @@ const nextConfig = {
         permanent: false,
         missing: [{ type: 'host', value: '(www\\.)?thebearings\\.app' }],
       },
-      // Bearings (EN, USD validation) is served from www.thebearings.app — the
-      // canonical host. The apex (thebearings.app) 308-redirects to www at the
-      // Vercel domain layer (infra, not code), so this app effectively only
-      // ever sees the www host; the `(www\.)?` match keeps a defensive apex
-      // fallback in case that edge redirect is ever removed. The root lands on
-      // the brand-isolated /regime route (Cohort KR footer hidden, lang='en',
-      // OG metadata resolve). cohort.co.kr root stays the Korean landing,
-      // untouched. Temporary (307) during validation so the mapping can change
-      // without poisoning caches. NB: do NOT add a www→apex redirect here — it
-      // would form a loop against the apex→www 308 above.
-      {
-        source: '/',
-        has: [{ type: 'host', value: 'www.thebearings.app' }],
-        destination: '/regime',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [{ type: 'host', value: 'thebearings.app' }],
-        destination: '/regime',
-        permanent: false,
-      },
-      // Preview + localhost land on /desk. Production www/apex already go to
-      // /regime above. desk/go hosts are rewritten in middleware. cohort.co.kr
-      // keeps the archived Korean landing.
+      // Apex 308→www is a Vercel domain mapping (infra, not this file).
+      // www / apex `/` now render the 살까말까 연구소 affiliate home
+      // (src/app/page.tsx host-gate). Do NOT bounce them to /regime.
+      // /regime stays reachable as an archived URL. cohort.co.kr `/` stays
+      // the Korean Cohort landing. NB: do NOT add a www→apex redirect here —
+      // it would loop against the apex→www 308.
+      // Preview + localhost land on /desk. desk/go hosts are rewritten in
+      // middleware.
       {
         source: '/',
         destination: '/desk',

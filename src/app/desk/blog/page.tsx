@@ -1,50 +1,55 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { headers } from 'next/headers';
-import { DeskBrand } from '@/components/desk/DeskBrand';
-import { listDeskBlogPosts } from '@/lib/desk/blog';
-import { deskBlogPostHref, deskIndexHref } from '@/lib/desk/urls';
+import { DeskChrome } from '@/components/desk/DeskChrome';
+import { listIndexableDeskBlogPosts } from '@/lib/desk/blog';
+import { DESK_ABOUT } from '@/lib/desk/brand';
+import { deskBlogPostHref, deskChromeHrefs } from '@/lib/desk/urls';
 
 export const metadata: Metadata = {
   title: { absolute: '글 — 살까말까 연구소' },
-  description: '살까말까 연구소 글. 지금은 준비 중입니다. 책상 물건은 목록에서 볼 수 있습니다.',
+  description:
+    '살까말까 연구소 글. 지금은 준비 중입니다. 책상 물건은 목록에서 볼 수 있습니다.',
   alternates: { canonical: '/blog' },
 };
 
 export default async function DeskBlogIndexPage() {
   const host = (await headers()).get('host') ?? '';
-  const posts = listDeskBlogPosts();
+  const posts = listIndexableDeskBlogPosts();
+  const { homeHref, shopHref, blogHref, devHref } = deskChromeHrefs(host);
 
   return (
-    <main className="mx-auto min-h-screen max-w-xl break-keep bg-cohort-ivory px-5 py-10 text-cohort-ink-90">
-      <header>
-        <DeskBrand href={deskIndexHref(host)} />
-      </header>
-      <nav className="mt-2">
-        <Link
-          href={deskIndexHref(host)}
-          className="inline-flex min-h-[44px] items-center text-sm text-cohort-ink-50 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
-        >
-          책상 물건
-        </Link>
-      </nav>
-      <h1 className="mt-6 text-2xl font-semibold">글</h1>
-      <p className="mt-2 text-base text-cohort-ink-70">
-        후기를 쌓는 자리입니다. 지금은 준비 중이고, 물건은 책상 목록에서 고릅니다.
+    <DeskChrome homeHref={homeHref} shopHref={shopHref} blogHref={blogHref} current="blog">
+      <h1 className="mt-8 text-2xl font-semibold">글</h1>
+      <p className="mt-4 text-base text-cohort-ink-70">{DESK_ABOUT}</p>
+      <p className="mt-3 text-base text-cohort-ink-70">
+        후기는 아직 없습니다. 물건이 실제로 팔린 뒤에 글을 올립니다.
       </p>
-      <ul className="mt-8 space-y-3">
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <Link
-              href={deskBlogPostHref(host, post.slug)}
-              className="flex min-h-[44px] flex-col justify-center rounded-xl border border-cohort-ink-10 bg-white px-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
-            >
-              <span className="font-medium">{post.title}</span>
-              <span className="mt-1 text-sm text-cohort-ink-50">{post.description}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+      {posts.length === 0 ? (
+        <p className="mt-6 rounded-xl border border-dashed border-cohort-ink-10 bg-white px-4 py-3 text-sm text-cohort-ink-70">
+          준비 중
+        </p>
+      ) : (
+        <ul className="mt-8 space-y-3">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link
+                href={deskBlogPostHref(host, post.slug)}
+                className="flex min-h-[44px] flex-col justify-center rounded-xl border border-cohort-ink-10 bg-white px-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
+              >
+                <span className="font-medium">{post.title}</span>
+                <span className="mt-1 text-sm text-cohort-ink-70">{post.description}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      <Link
+        href={devHref}
+        className="mt-8 inline-flex min-h-[44px] items-center justify-center rounded-xl border border-cohort-ink-10 bg-white px-4 py-3 text-base font-medium text-cohort-ink-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
+      >
+        개발자 데스크 보기
+      </Link>
+    </DeskChrome>
   );
 }

@@ -34,7 +34,7 @@ export function Footer() {
                     href="/regime"
                     className="transition-colors hover:text-cohort-charcoal"
                   >
-                    Regime
+                    보관됨
                   </Link>
                 </li>
                 <li>

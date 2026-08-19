@@ -1,9 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import {
+  DESK_ABOUT,
   DESK_BRAND_NAME,
   DESK_BRAND_REWRITES,
   DESK_ICONS,
+  DESK_LOGO_HEIGHT,
   DESK_LOGO_SRC,
+  DESK_LOGO_WIDTH,
+  DESK_OPEN_GRAPH,
+  DESK_YOUTUBE_HREF,
   deskBrandRewritePath,
   isDeskPublicFile,
 } from '@/lib/desk/brand';
@@ -35,5 +40,19 @@ describe('desk brand assets', () => {
         true,
       );
     }
+  });
+
+  it('declares OG image size and YouTube without legal-entity fields', () => {
+    expect(DESK_OPEN_GRAPH.images).toEqual([
+      {
+        url: DESK_LOGO_SRC,
+        alt: DESK_BRAND_NAME,
+        width: DESK_LOGO_WIDTH,
+        height: DESK_LOGO_HEIGHT,
+      },
+    ]);
+    expect(DESK_YOUTUBE_HREF).toBe('https://www.youtube.com/@sal-kka-lab');
+    expect(DESK_ABOUT).not.toContain('사업자');
+    expect(DESK_ABOUT).not.toContain('추천');
   });
 });

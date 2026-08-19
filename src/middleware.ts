@@ -11,7 +11,12 @@
  */
 import { NextResponse, type NextRequest } from 'next/server';
 import { deskBrandRewritePath } from '@/lib/desk/brand';
-import { isDeskHost, isGoHost, isPreviewOrLocalHost } from '@/lib/desk/hosts';
+import {
+  isBearingsPublicHost,
+  isDeskHost,
+  isGoHost,
+  isPreviewOrLocalHost,
+} from '@/lib/desk/hosts';
 import {
   deskCanonicalPath,
   deskRewritePath,
@@ -72,8 +77,13 @@ export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') ?? '';
   const brandDest = deskBrandRewritePath(request.nextUrl.pathname);
   if (brandDest) {
-    // desk/go + preview validate 살까말까 icons. Cohort/Bearings keep root files.
-    if (isDeskHost(host) || isGoHost(host) || isPreviewOrLocalHost(host)) {
+    // desk/go + preview + www/apex use 살까말까 icons. cohort.co.kr keeps root files.
+    if (
+      isDeskHost(host) ||
+      isGoHost(host) ||
+      isPreviewOrLocalHost(host) ||
+      isBearingsPublicHost(host)
+    ) {
       return rewriteToPath(request, brandDest);
     }
     return NextResponse.next();
@@ -118,9 +128,11 @@ export async function middleware(request: NextRequest) {
 
   // First landing hit per session: signed-in users → dashboard (skip re-marketing).
   // After `cohort-landing-pass` cookie is set, `/` renders normally (footer 홈 link).
+  // Skip on www/apex — that `/` is the 살까말까 affiliate home, not Cohort.
   if (
     user &&
     pathname === '/' &&
+    !isBearingsPublicHost(host) &&
     !request.cookies.get(LANDING_PASS_COOKIE)
   ) {
     const url = request.nextUrl.clone();
@@ -138,7 +150,11 @@ export async function middleware(request: NextRequest) {
 
   // Assign a sticky A/B variant on the landing page if not already set.
   // SameSite=Lax + not HttpOnly — the client reads it for PostHog attribution.
-  if (pathname === '/' && !request.cookies.get(AB_COOKIE)) {
+  if (
+    pathname === '/' &&
+    !isBearingsPublicHost(host) &&
+    !request.cookies.get(AB_COOKIE)
+  ) {
     response.cookies.set(AB_COOKIE, assignAbVariant(), {
       maxAge: AB_MAX_AGE,
       sameSite: 'lax',

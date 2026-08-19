@@ -7,6 +7,8 @@ export type DeskBlogPost = {
   description: string;
   date: string;
   body: string;
+  /** Stub / thin pages stay out of the sitemap until a real SKU post exists. */
+  indexable: boolean;
 };
 
 const FRONTMATTER_RE = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
@@ -37,6 +39,7 @@ export function parseDeskBlogMarkdown(raw: string): DeskBlogPost {
     description,
     date,
     body: match[2].trim(),
+    indexable: fields.index !== 'false',
   };
 }
 
@@ -55,4 +58,8 @@ export function getDeskBlogPost(
   cwd = process.cwd(),
 ): DeskBlogPost | undefined {
   return listDeskBlogPosts(cwd).find((post) => post.slug === slug);
+}
+
+export function listIndexableDeskBlogPosts(cwd = process.cwd()): DeskBlogPost[] {
+  return listDeskBlogPosts(cwd).filter((post) => post.indexable);
 }
