@@ -12,7 +12,7 @@ type AffiliateHomeProps = {
 
 /** Apex/www front door — points at desk.thebearings.app, does not duplicate cards. */
 export function AffiliateHome({ host }: AffiliateHomeProps) {
-  const { homeHref, shopHref, blogHref, devHref } = deskChromeHrefs(host);
+  const { homeHref, shopHref, blogHref } = deskChromeHrefs(host);
 
   return (
     <DeskChrome
@@ -28,10 +28,7 @@ export function AffiliateHome({ host }: AffiliateHomeProps) {
         물건 목록은 책상 호스트에 있습니다. 후기 글은 아직 없습니다.
       </p>
       <div className="mt-8 flex flex-col gap-3">
-        <Link href={devHref} className={CTA_CLASS}>
-          개발자 데스크 보기
-        </Link>
-        <Link href={shopHref} className={`${CTA_CLASS} text-cohort-ink-70`}>
+        <Link href={shopHref} className={CTA_CLASS}>
           책상 물건
         </Link>
         <Link href={blogHref} className={`${CTA_CLASS} text-cohort-ink-70`}>

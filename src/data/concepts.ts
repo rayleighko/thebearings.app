@@ -126,7 +126,7 @@ export const DEV_OFFICIAL_CDN_THUMBS: Record<string, string> = {
 export const CONCEPTS: Concept[] = [
   {
     slug: 'dev',
-    title: '개발자 데스크',
+    title: '책상 물건',
     note: '모니터암과 입력장치 위주의 작업 데스크. 물건은 탭하면 상세와 구매 링크가 열립니다.',
     bg: '/desk/dev/bg.jpg',
     items: DEV_ITEMS,
@@ -216,7 +216,7 @@ function firstSearchParam(
   return trimmed ? trimmed : undefined;
 }
 
-/** Video context only (`?v=` or `?from=video&sku=`). Bare /dev has no featured SKU. */
+/** Video context only (`?v=` or `?from=video&sku=`). Bare catalog has no featured SKU. */
 export function resolveDeskFeaturedSlug(
   items: Item[],
   searchParams: DeskVideoSearchParams,
@@ -229,6 +229,19 @@ export function resolveDeskFeaturedSlug(
   const candidate = fromVideo ?? fromFlag;
   if (!candidate) return undefined;
   return items.some((item) => item.id === candidate) ? candidate : undefined;
+}
+
+/** Keep `?v=` / `?from=` / `?sku=` when `/dev` redirects to the apex shop. */
+export function deskVideoQueryString(searchParams: DeskVideoSearchParams): string {
+  const q = new URLSearchParams();
+  const v = firstSearchParam(searchParams.v);
+  const from = firstSearchParam(searchParams.from);
+  const sku = firstSearchParam(searchParams.sku);
+  if (v) q.set('v', v);
+  if (from) q.set('from', from);
+  if (sku) q.set('sku', sku);
+  const s = q.toString();
+  return s ? `?${s}` : '';
 }
 
 export function orderDeskItems(items: Item[], featuredSlug?: string): Item[] {

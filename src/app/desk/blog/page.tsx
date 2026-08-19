@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default async function DeskBlogIndexPage() {
   const host = (await headers()).get('host') ?? '';
   const posts = listIndexableDeskBlogPosts();
-  const { homeHref, shopHref, blogHref, devHref } = deskChromeHrefs(host);
+  const { homeHref, shopHref, blogHref } = deskChromeHrefs(host);
 
   return (
     <DeskChrome homeHref={homeHref} shopHref={shopHref} blogHref={blogHref} current="blog">
@@ -45,10 +45,10 @@ export default async function DeskBlogIndexPage() {
         </ul>
       )}
       <Link
-        href={devHref}
+        href={shopHref}
         className="mt-8 inline-flex min-h-[44px] items-center justify-center rounded-xl border border-cohort-ink-10 bg-white px-4 py-3 text-base font-medium text-cohort-ink-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cohort-ink-90"
       >
-        개발자 데스크 보기
+        책상 물건 보기
       </Link>
     </DeskChrome>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 export const DESK_BRAND_NAME = '살까말까 연구소';
+export const DESK_SHOP_HEADING = '책상 물건';
 export const DESK_BRAND_DESCRIPTION =
   '책상에서 직접 쓰는 물건만 모읍니다. 살까 말까를 적어 두는 연구소입니다.';
 export const DESK_ABOUT =

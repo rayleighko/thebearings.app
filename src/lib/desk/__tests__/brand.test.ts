@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   DESK_ABOUT,
   DESK_BRAND_NAME,
+  DESK_SHOP_HEADING,
   DESK_BRAND_REWRITES,
   DESK_ICONS,
   DESK_LOGO_HEIGHT,
@@ -31,6 +32,7 @@ describe('desk brand assets', () => {
     expect(serialized).not.toContain('"/logo.png"');
     expect(DESK_LOGO_SRC).toBe('/desk/logo.png');
     expect(DESK_BRAND_NAME).toBe('살까말까 연구소');
+    expect(DESK_SHOP_HEADING).toBe('책상 물건');
     expect(isDeskPublicFile('/desk.webmanifest')).toBe(true);
   });
 
