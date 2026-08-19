@@ -7,6 +7,7 @@ import {
   DESK_OPEN_GRAPH,
   DESK_TWITTER,
 } from '@/lib/desk/brand';
+import { deskVerificationMetadata } from '@/lib/desk/seo';
 
 export const metadata: Metadata = {
   title: { absolute: DESK_BRAND_NAME },
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
   manifest: '/desk.webmanifest',
   openGraph: DESK_OPEN_GRAPH,
   twitter: DESK_TWITTER,
+  verification: deskVerificationMetadata(),
 };
 
 /**

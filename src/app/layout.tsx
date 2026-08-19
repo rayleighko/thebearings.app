@@ -14,9 +14,12 @@ import {
 } from '@/lib/desk/brand';
 import {
   isBearingsPublicHost,
+  isDeskHost,
   isDeskOrGoHost,
+  isGoHost,
   isPreviewOrLocalHost,
 } from '@/lib/desk/hosts';
+import { DESK_NAVER_SITE_VERIFICATION, deskVerificationMetadata } from '@/lib/desk/seo';
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Cohort';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://cohort.co.kr';
@@ -113,10 +116,18 @@ export async function generateMetadata(): Promise<Metadata> {
         ? bearingsMetadata
         : cohortMetadata;
 
+  // Naver HTML tag for desk.thebearings.app only — not www, go, or Cohort.
+  const deskNaver =
+    (isDeskHost(host) || isPreviewOrLocalHost(host)) && !isGoHost(host);
+
   return {
     ...base,
+    ...(deskNaver ? { verification: deskVerificationMetadata() } : {}),
     other: {
       ...Sentry.getTraceData(),
+      ...(deskNaver
+        ? { 'naver-site-verification': DESK_NAVER_SITE_VERIFICATION }
+        : {}),
     },
   };
 }

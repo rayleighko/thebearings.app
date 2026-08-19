@@ -20,6 +20,17 @@ function isPassthrough(pathname: string, prefix: string): boolean {
   return pathname === prefix || pathname.startsWith(`${prefix}/`);
 }
 
+/** Next metadata routes — must not become a missing desk concept. */
+const CRAWLER_FILES = new Set(['/sitemap.xml', '/robots.txt']);
+
+function isCrawlerFile(pathname: string): boolean {
+  return CRAWLER_FILES.has(pathname);
+}
+
+function isDeskBlogPath(pathname: string): boolean {
+  return pathname === '/blog' || pathname.startsWith('/blog/');
+}
+
 /**
  * Returns the App Router path to rewrite to, or `null` to pass through.
  * Unmatched desk-host paths rewrite to a missing concept so nested not-found
@@ -29,11 +40,13 @@ export function deskRewritePath(pathname: string): string | null {
   if (
     isPassthrough(pathname, '/go') ||
     isPassthrough(pathname, '/desk') ||
-    isDeskPublicFile(pathname)
+    isDeskPublicFile(pathname) ||
+    isCrawlerFile(pathname)
   ) {
     return null;
   }
   if (pathname === '/') return '/desk';
+  if (isDeskBlogPath(pathname)) return `/desk${pathname}`;
   const slug = singleSegmentSlug(pathname);
   if (slug) return `/desk/${slug}`;
   return DESK_MISSING_PATH;
@@ -44,7 +57,11 @@ export function deskRewritePath(pathname: string): string | null {
  * Unmatched go-host paths rewrite to `/go` (index calls `notFound()`).
  */
 export function goRewritePath(pathname: string): string | null {
-  if (isPassthrough(pathname, '/go') || isDeskPublicFile(pathname)) {
+  if (
+    isPassthrough(pathname, '/go') ||
+    isDeskPublicFile(pathname) ||
+    isCrawlerFile(pathname)
+  ) {
     return null;
   }
   if (pathname === '/') return '/go';

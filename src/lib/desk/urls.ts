@@ -9,6 +9,14 @@ export function deskConceptHref(hostHeader: string, slug: string): string {
   return isDeskHost(hostHeader) ? `/${slug}` : `/desk/${slug}`;
 }
 
+export function deskBlogHref(hostHeader: string): string {
+  return isDeskHost(hostHeader) ? '/blog' : '/desk/blog';
+}
+
+export function deskBlogPostHref(hostHeader: string, slug: string): string {
+  return isDeskHost(hostHeader) ? `/blog/${slug}` : `/desk/blog/${slug}`;
+}
+
 /**
  * Affiliate hrefs go through the go redirect so every click is logged.
  * On production, prefer the dedicated go host (cleaner referrer).

@@ -38,6 +38,8 @@ Cohort(투자 페이스)와 섞지 말 것. 이 줄은 데스크 제휴 숏폼 +
 | Typecast 출력 | `pnpm desk:print-script -- --file=...` |
 | `go` 클릭 로그 (영상 CTA 아님) | `src/app/go/[slug]/route.ts` → Supabase `clicks` / `supabase/migrations/0015_clicks.sql` |
 | 데스크 UI | `src/app/desk/` · `src/components/desk/DeskBrand.tsx` |
+| 검색 등록 (GSC/네이버) | `docs/desk/search-console.md` — www 재등록 금지. desk 사이트맵만 |
+| 블로그 스캐폴드 | `content/desk/blog/` · `src/app/desk/blog/` |
 | pnpm 스크립트 | `package.json` 의 `desk:*` |
 
 `mp4` / `wav` 는 gitignore. 로컬만: `content/desk/uploads/**` 와 `tmp/desk-stock/`.
