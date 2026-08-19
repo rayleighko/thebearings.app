@@ -55,8 +55,19 @@
 
 ---
 
+## 살까말까 연구소 (desk affiliate)
+
+| 문서 | 내용 |
+|------|------|
+| [`desk/GROK-HANDOFF.md`](desk/GROK-HANDOFF.md) | **운영 SoT** — 채널, SKU, 파이프라인, 지표 게이트 |
+| [`desk/search-console.md`](desk/search-console.md) | GSC / 네이버 등록 (완료) |
+
+라이브: https://www.thebearings.app/ · https://desk.thebearings.app/dev
+
+---
+
 ## 빠른 링크
 
-- 라이브: https://www.cohort.co.kr/
+- 라이브 (Cohort): https://www.cohort.co.kr/
 - 4단 로드맵 L1–L4: [`handoff-20260611/portfolio-tool-roadmap.md`](handoff-20260611/portfolio-tool-roadmap.md)
 - Docker 로컬: `docker compose up` → [`engineering/docker-local.md`](engineering/docker-local.md)

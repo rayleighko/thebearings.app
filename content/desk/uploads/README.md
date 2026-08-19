@@ -9,8 +9,8 @@
 ## 순서
 
 1. `01-arm-nb-f80/` — 1편 (올렸음)
-2. `02-arm-nb-f80/` — 올렸음 (유튜브 공개)
-3. **내일:** `03-lamp-screenbar/` — 스크린바. 오늘은 올리지 않음. `docs/desk/ep3-screenbar-script.md`
+2. `02-arm-nb-f80/` — 올렸음 (유튜브·네이버)
+3. `03-lamp-screenbar/` — 올렸음 (유튜브·네이버). ep4는 지표 후. `docs/desk/GROK-HANDOFF.md` §10
 
 한 편 폴더:
 

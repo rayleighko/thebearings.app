@@ -4,8 +4,7 @@
 
 **Live:** [cohort.co.kr](https://www.cohort.co.kr/) · **Docs index:** [`docs/README.md`](docs/README.md)
 
-The English Bearings regime analyzer is live at
-[thebearings.app/regime](https://www.thebearings.app/regime).
+`www.thebearings.app` is the **살까말까 연구소** affiliate front door. Shop: [desk.thebearings.app/dev](https://desk.thebearings.app/dev). Desk SoT: [`docs/desk/GROK-HANDOFF.md`](docs/desk/GROK-HANDOFF.md). The English Bearings analyzer is archived at [thebearings.app/regime](https://www.thebearings.app/regime) (`noindex`).
 
 Aurora 🕊 (patient pace) and Vesper 🦅 (sharp signals) help you stay on **your** plan — not ours.  
 **Option B:** Information + Tool + Decision Support only. No investment advice, no auto-trading.
