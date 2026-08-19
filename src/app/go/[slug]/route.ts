@@ -9,7 +9,7 @@ const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function goNotFoundResponse(): NextResponse {
   return new NextResponse(
-    `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>Desk</title></head><body><p>링크를 찾을 수 없습니다.</p></body></html>`,
+    `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>살까말까 연구소</title><link rel="icon" href="/desk/favicon-32.png" type="image/png" sizes="32x32"></head><body><p>링크를 찾을 수 없습니다.</p></body></html>`,
     {
       status: 404,
       headers: { 'content-type': 'text/html; charset=utf-8' },

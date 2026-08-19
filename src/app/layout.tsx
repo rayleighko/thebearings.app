@@ -6,6 +6,13 @@ import PostHogProvider from '@/components/analytics/PostHogProvider';
 import ServiceWorkerRegister from '@/components/pwa/ServiceWorkerRegister';
 import { ConditionalFooter } from '@/components/layout/ConditionalFooter';
 import {
+  DESK_BRAND_DESCRIPTION,
+  DESK_BRAND_NAME,
+  DESK_ICONS,
+  DESK_OPEN_GRAPH,
+  DESK_TWITTER,
+} from '@/lib/desk/brand';
+import {
   isBearingsPublicHost,
   isDeskOrGoHost,
   isPreviewOrLocalHost,
@@ -69,33 +76,23 @@ const bearingsMetadata: Metadata = {
   },
 };
 
-const DESK_ICONS: NonNullable<Metadata['icons']> = {
-  icon: [
-    { url: '/desk/favicon-16.png', type: 'image/png', sizes: '16x16' },
-    { url: '/desk/favicon-32.png', type: 'image/png', sizes: '32x32' },
-    { url: '/desk/favicon-48.png', type: 'image/png', sizes: '48x48' },
-    { url: '/desk/icon-192.png', type: 'image/png', sizes: '192x192' },
-    { url: '/desk/icon-512.png', type: 'image/png', sizes: '512x512' },
-  ],
-  apple: { url: '/desk/apple-touch-icon.png', sizes: '180x180' },
-};
-
 const deskGoMetadata: Metadata = {
   metadataBase: new URL('https://desk.thebearings.app'),
   title: {
-    default: '살까말까 연구소',
+    default: DESK_BRAND_NAME,
     template: '%s',
   },
-  description:
-    '책상 위 물건을 탭하면 제품 정보와 구매 링크가 열립니다. 쿠팡 파트너스 활동의 일환입니다.',
-  applicationName: '살까말까 연구소',
+  description: DESK_BRAND_DESCRIPTION,
+  applicationName: DESK_BRAND_NAME,
   manifest: '/desk.webmanifest',
   icons: DESK_ICONS,
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: '살까말까 연구소',
+    title: DESK_BRAND_NAME,
   },
+  openGraph: DESK_OPEN_GRAPH,
+  twitter: DESK_TWITTER,
 };
 
 /**

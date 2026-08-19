@@ -38,6 +38,10 @@ describe('deskRewritePath', () => {
     expect(deskRewritePath('/foo/bar')).toBe(DESK_MISSING_PATH);
     expect(deskRewritePath('/not_valid')).toBe(DESK_MISSING_PATH);
   });
+
+  it('passes through the desk PWA manifest so it is not a missing concept', () => {
+    expect(deskRewritePath('/desk.webmanifest')).toBeNull();
+  });
 });
 
 describe('goRewritePath', () => {
@@ -53,6 +57,10 @@ describe('goRewritePath', () => {
 
   it('sends unmatched paths to the go index (nested 404)', () => {
     expect(goRewritePath('/foo/bar')).toBe('/go');
+  });
+
+  it('passes through the desk PWA manifest', () => {
+    expect(goRewritePath('/desk.webmanifest')).toBeNull();
   });
 });
 

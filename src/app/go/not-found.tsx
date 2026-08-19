@@ -5,7 +5,7 @@ export default function GoSegmentNotFound() {
   return (
     <DeskNotFound
       homeHref="https://desk.thebearings.app/"
-      homeLabel="Desk로"
+      homeLabel="살까말까 연구소"
     />
   );
 }
