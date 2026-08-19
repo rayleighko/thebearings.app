@@ -42,6 +42,13 @@ describe('deskRewritePath', () => {
   it('passes through the desk PWA manifest so it is not a missing concept', () => {
     expect(deskRewritePath('/desk.webmanifest')).toBeNull();
   });
+
+  it('passes through crawler files and rewrites blog paths', () => {
+    expect(deskRewritePath('/sitemap.xml')).toBeNull();
+    expect(deskRewritePath('/robots.txt')).toBeNull();
+    expect(deskRewritePath('/blog')).toBe('/desk/blog');
+    expect(deskRewritePath('/blog/preparing')).toBe('/desk/blog/preparing');
+  });
 });
 
 describe('goRewritePath', () => {
@@ -61,6 +68,11 @@ describe('goRewritePath', () => {
 
   it('passes through the desk PWA manifest', () => {
     expect(goRewritePath('/desk.webmanifest')).toBeNull();
+  });
+
+  it('passes through crawler files so go can noindex via robots.ts', () => {
+    expect(goRewritePath('/sitemap.xml')).toBeNull();
+    expect(goRewritePath('/robots.txt')).toBeNull();
   });
 });
 
