@@ -14,8 +14,13 @@ Cohort(투자 페이스)와 섞지 말 것. 이 줄은 데스크 제휴 숏폼 +
 한국 책상 용품을 **유튜브 쇼츠 = 쿠팡 파트너스**, **네이버 클립 = 쇼핑 커넥트**로 나눠 판다.  
 같은 9:16 마스터를 두 곳에 올린다. 클릭이 KPI, 조회수는 보조. 본인 제휴 링크는 누르지 않는다.
 
-**다음 할 일 (2026-08-19):** 3편 스크린바 **업로드** (유튜브+네이버). 마스터는 로컬 준비됨.  
-실험 변수는 SKU/통증만. CTA 문장은 아직 `링크는 댓글에 있어요.` (`아래`는 4편).
+**2026-08-19 저녁 기준 — 코드 스프린트 정지. 지표 대기.**
+
+끝난 것: ep1–3 업로드, desk UX(히어로/가격 숨김, AG100 슬러그, 살까말까 아이콘), desk 사이트맵, www 어필리에이트 홈, `/regime` 아카이브.  
+검색 등록(GSC desk 사이트맵 + 네이버 desk 소유확인)도 운영자가 마침. `docs/desk/search-console.md`.
+
+지금: **48–72시간 지표만.** 쿠팡(암 vs 스크린바 클릭), 네이버 커넥트 클릭. 검색 실적·ep4·블로그 글·사업자·사이트 이중 CTA는 숫자가 오기 전에 시작하지 않음.  
+CTA 문장은 아직 `링크는 댓글에 있어요.` (`아래`는 4편).
 
 ---
 
@@ -31,14 +36,14 @@ Cohort(투자 페이스)와 섞지 말 것. 이 줄은 데스크 제휴 숏폼 +
 | 올릴 큐 | `content/desk/uploads/README.md` |
 | 스톡·라이선스 규칙 | `docs/desk/shortform-asset-pipeline.md` |
 | 카탈로그·쿠팡 URL | `src/data/concepts.ts` (`productUrl`, `DEV_OFFICIAL_CDN_THUMBS`) |
-| 렌더 ep2 (복제할 스크립트) | `scripts/desk/render-ep2.ts` |
+| 렌더 ep2 / ep3 | `scripts/desk/render-ep2.ts` · `render-ep3.ts` (`pnpm desk:render-ep2` / `desk:render-ep3`) |
 | 자막 PNG | `scripts/desk/render-caption-plate.swift` (`--safe-bottom 720`) |
 | 스톡 다운 | `scripts/desk/fetch-stock-clips.ts` / `pnpm desk:fetch-stock` |
 | 컷아웃 | `scripts/desk/cutout-official-thumbs.ts` / `public/desk/dev/{id}.png` |
 | Typecast 출력 | `pnpm desk:print-script -- --file=...` |
 | `go` 클릭 로그 (영상 CTA 아님) | `src/app/go/[slug]/route.ts` → Supabase `clicks` / `supabase/migrations/0015_clicks.sql` |
 | 데스크 UI | `src/app/desk/` · `src/components/desk/DeskBrand.tsx` |
-| 검색 등록 (GSC/네이버) | `docs/desk/search-console.md` — www 재등록 금지. desk 사이트맵만 |
+| 검색 등록 (GSC/네이버) | `docs/desk/search-console.md` — **완료.** www 재등록·`go` 등록 금지 |
 | 블로그 스캐폴드 | `content/desk/blog/` · `src/app/desk/blog/` |
 | pnpm 스크립트 | `package.json` 의 `desk:*` |
 
@@ -111,14 +116,15 @@ pnpm desk:print-script -- --file=content/desk/uploads/03-lamp-screenbar/script.j
 # 스톡 (PEXELS_API_KEY 는 .env.local 만)
 pnpm desk:fetch-stock -- --sku=lamp-screenbar
 
-# 2편 렌더 (3편은 이 파일을 복제해 render-ep3 를 만들 것)
+# 2편 / 3편 렌더
 pnpm desk:render-ep2
+pnpm desk:render-ep3
 
 # 컷아웃이 비면
 pnpm desk:cutout-thumbs
 ```
 
-`desk:render-ep3` 는 **아직 없다**. `scripts/desk/render-ep2.ts`를 복사해
+`desk:render-ep3` **있음** (`scripts/desk/render-ep3.ts`). 3편을 다시 뽑을 때:
 
 - VO: `content/desk/uploads/03-lamp-screenbar/vo.wav` (로컬, 약 9.3s)
 - 스티커: `public/desk/dev/lamp-screenbar.png`
@@ -174,7 +180,7 @@ YouTube Studio AI가 `의자 추천` 같은 키워드를 제안하면 무시 (�
 | 2026-08-19 16:30 | 1+2 암 | 쿠팡 | YT 합 357 | (미집계) | **7** (본인 1 가능, 19일 +6) | 0 | CTR≈2%. 댓글 단 뒤 |
 | 2026-08-19 | 2 암 | 네이버 | 3 | — | 1 (본인일 수 있음) | 0 | 클립 1개만. 배포 문제 |
 | 2026-08-19 | 2 암 | YT Studio AI | 165 | `계속 시청함` 7.06% (이어보기, AVD 아님) | — | — | 훅≠의자 미끼 교훈 |
-| 2026-08-19 17:00 | 3 스크린바 | local | 마스터 9.30s | — | — | 0 | 렌더 완료. 미업로드. 암 클립/링크 안 씀 |
+| 2026-08-19 17:00 | 3 스크린바 | local | 마스터 9.30s | — | — | 0 | 렌더 완료. 암 클립/링크 안 씀. 이후 YT+네이버 업로드 |
 
 1편 YT 설명은 2026-08-19에 쿠팡으로 교체함. 이후 `go.` 클릭은 기댓값 낮음.
 
@@ -186,7 +192,7 @@ YouTube Studio AI가 `의자 추천` 같은 키워드를 제안하면 무시 (�
 |---|---|---|---|---|
 | 01 | `arm-nb-f80` | 고개 앞으로 빠지지 않음? | 공개. 재생목록 데스크 | 그리드에 없을 수 있음 → 올리기 |
 | 02 | `arm-nb-f80` | 목 아픈데 의자만 바꿔요? | 공개 | 재업로드(자막 720). 상품 F80 검정 |
-| 03 | `lamp-screenbar` | 모니터가 눈부셔요? | **미업로드** | 미업로드. 마스터 video.mp4 로컬 준비. 네이버는 스크린바 naver.me 필요 |
+| 03 | `lamp-screenbar` | 모니터가 눈부셔요? | 공개 | 공개. 스크린바 커넥트(F80 금지). `naver.me`는 업로드 팩에 적을 것 |
 
 ---
 
@@ -194,11 +200,10 @@ YouTube Studio AI가 `의자 추천` 같은 키워드를 제안하면 무시 (�
 
 **해도 됨**
 
-- `render-ep3.ts` 작성 후 로컬 렌더 (클립·wav가 있을 때)
-- `03-lamp-screenbar/youtube.md` · `naver.md` 작성 (`pnpm desk:print-script` 출력 기준)
 - §6 표에 운영자가 준 숫자 추가 + `retro-2026-08-18.md` 판정 한 줄
 - 훅이 SKU와 같은지 대본 검수
 - 데스크 UI 버그 수정 (로고·리스트·세이프존은 이미 있음)
+- 지표가 온 뒤에만: 사이트 이중 CTA, ep4 노트북 스탠드, 전환 SKU 글 하나
 
 **하지 말 것**
 
@@ -208,6 +213,7 @@ YouTube Studio AI가 `의자 추천` 같은 키워드를 제안하면 무시 (�
 - 공동구매 링크 발급
 - 영상 CTA를 `go.` 나 `desk.thebearings.app` 로 변경
 - 3편에서 CTA를 `아래`로 바꾸기 (4편)
+- 지표 오기 전 ep4 렌더·틱톡·블로그 본문·사업자 푸터
 - `supabase/config.toml` 로컬 PG 버전 커밋
 - `--no-verify` / force push
 - Cohort 랜딩/오로라 카피를 데스크에 심기
@@ -229,3 +235,15 @@ https://link.coupang.com/a/gi7YPbNxdY
 태그: `스크린바, 모니터조명, 눈피로, 데스크셋업, 살까말까연구소`
 
 네이버 댓글: 커넥트에서 받은 스크린바 `naver.me` (F80 링크 쓰지 말 것).
+
+---
+
+## 10. 다음 작업 (지표 게이트)
+
+코드 스프린트는 여기까지. 아래 1번 숫자가 오기 전에 2–4를 시작하지 않는다.
+
+1. **48–72시간 지표** — 쿠팡: 암 vs 스크린바 클릭. 네이버: 커넥트 클릭. 검색 실적은 보지 않아도 됨.
+2. **사이트 이중 CTA** — SKU 카드에 `쿠팡에서 보기` + `네이버에서 보기`. 영상은 플랫폼당 링크 하나.
+3. **다음 숏폼** — 클릭/전환이 나온 뒤. 후보 노트북 스탠드(목/높이, 암과 같은 일). 같은 날 두 편 금지. CTA `아래`는 4편용.
+4. **첫 글** — 구매가 찍힌 SKU 하나만. `/blog` 스텁 유지.
+5. **사업자** — 수익 난 뒤. 푸터에 숫자를 지어내지 않음.

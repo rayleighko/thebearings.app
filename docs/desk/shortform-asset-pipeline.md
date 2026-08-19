@@ -1,5 +1,7 @@
 # Licensed short-form asset pipeline
 
+> **히스토리.** ep1 CapCut 20s / 프로필 CTA / `mouse-mx-master` 공개 슬러그. 새 편은 `.cursor/skills/desk-shortform-script/SKILL.md` + `render-ep2`/`render-ep3`. 공개 마우스 슬러그는 `mouse-ag100`.
+
 Operator-only path for hooking **9:16** clips aimed at Korean YouTube / Naver.
 The founder does not film. Source footage must be something we are allowed to use.
 

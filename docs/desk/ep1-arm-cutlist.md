@@ -1,5 +1,7 @@
 # Episode 1 cutlist — `arm-nb-f80` (싱글 모니터암)
 
+> **히스토리.** ep1 CapCut 20s / 프로필 CTA. 새 편은 `.cursor/skills/desk-shortform-script/SKILL.md` + `pnpm desk:render-ep2` / `desk:render-ep3`. 이 컷리스트로 렌더하지 말 것.
+
 9:16 · target **20.0s** · licensed Pexels previews only (no XHS / YouTube / Coupang scrape).
 
 CapCut draft: `tmp/desk-stock/drafts/ep1-arm-nb-f80/` (compile spec: `scripts/desk/ep1-arm-spec.json`).
