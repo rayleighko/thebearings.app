@@ -1,0 +1,47 @@
+{
+  "episode": 4,
+  "sku": "lamp-screenbar",
+  "title": "밤에 천장 불만 켜 놓고 일해요?",
+  "durationSec": 10,
+  "vo": {
+    "gender": "female",
+    "actor": "예슬",
+    "language": "kor",
+    "speed": 1,
+    "emotion": "normal",
+    "pauseSec": 0.2,
+    "register": "해요체",
+    "lines": [
+      "밤에 천장 불만 켜 놓고 일해요?",
+      "얼굴만 밝고 화면은 그냥 눈부셔요.",
+      "스크린바는 모니터만 밝히는 거예요. 다는 방법은 목록에 있어요.",
+      "프로필에 책상 목록 있어요."
+    ]
+  },
+  "picture": {
+    "hookGender": "female",
+    "productFromSec": 5,
+    "notes": "첫 프레임 야간 천장 불 + 모니터 반사. 3편 클립 재사용 금지. 암 클립 금지. 5초부터 스크린바 스티커."
+  },
+  "youtube": {
+    "title": "밤에 천장 불만 켜 놓고 일해요?",
+    "descriptionLead": "밤에 천장 불만 켜 놓으면 화면이 눈부셔요. 스크린바.",
+    "productUrl": "https://link.coupang.com/a/gi7YPbNxdY",
+    "tags": [
+      "스크린바",
+      "모니터조명",
+      "눈부심",
+      "데스크셋업",
+      "살까말까연구소"
+    ],
+    "hashtags": ["#스크린바", "#모니터조명", "#데스크셋업", "#shorts"],
+    "category": "노하우 및 스타일",
+    "language": "한국어",
+    "playlist": "데스크",
+    "madeForKids": false,
+    "paidPromotion": true,
+    "comments": "on",
+    "showLikeCount": true,
+    "thumbnail": "from-video"
+  }
+}
