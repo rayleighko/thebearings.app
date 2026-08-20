@@ -14,7 +14,7 @@ Do not skip `vo.gender` or `picture.hookGender`. Never put pause tokens in the p
 | Field | Value |
 |---|---|
 | Duration | 9–10s, 4 lines |
-| Register | 해요체 구어체. AI 광고 톤 금지 |
+| Register | 해요체 구어체. 번역체·전보체·광고 AI 톤 금지 |
 | `vo.actor` | `예슬` |
 | `vo.gender` | `female` unless the user asks male |
 | `vo.emotion` | `normal` (스튜디오 **일반**) |
@@ -52,7 +52,23 @@ Four lines are a **sales loop**, not a finished tip. If line 3 already solves it
 
 Ban on-camera: 공포 과장, 가짜 리뷰, 진화심리 설명, 최저가. 신뢰는 `[광고]` + 댓글 링크로.
 
-AI 느낌의 큰 축은 대본이 아니라 **Pexels + Typecast**. 다음 편에서 운영자 책상 5초가 있으면 그록은 그걸 첫 클립으로 쓴다. 없으면 스톡이어도 라인 3은 닫지 말 것.
+## VO Korean lint (before lock)
+
+Do not install `snflkd/fluent-korean` as a Cursor plugin. That repo is a **Claude Code output-style**. For this channel, lint the four VO lines only.
+
+Source (MIT): https://github.com/snflkd/fluent-korean — `plugins/fluent-korean/output-styles/fluent-korean-not-coding.md`
+
+Spoken 9s 해요체 is the register. Do **not** expand into complete 문어 보고체. After writing four lines, check:
+
+1. 조사·어미를 빼서 전보처럼 끝내지 말 것. `다는 법은 목록에.` → `다는 방법은 목록에 있어요.`
+2. 빈 지시어. `그 높이예요` / `그게 그거예요` 금지. 무엇을 말하는지 명사로.
+3. `위만… 앞은…` 같은 대우 슬로건, 모든 줄을 `~예요`로 맞추기 금지.
+4. 입으로 말하는지. `올려 놨어요`, `그냥`, `맞추는 거예요` 쪽이 `사용합니다`보다 맞음.
+5. 엠대시(`—`) 금지.
+
+If a line fails, rewrite that line. Do not add a fifth line.
+
+AI 느낌의 큰 축은 대본만이 아니라 **Pexels + Typecast**다. 다음 편에서 운영자 책상 5초가 있으면 그록은 그걸 첫 클립으로 쓴다. 없어도 라인 3은 닫지 말 것.
 
 ## Quality gates
 
@@ -63,6 +79,7 @@ AI 느낌의 큰 축은 대본이 아니라 **Pexels + Typecast**. 다음 편에
 5. Captions = VO lines 1:1.
 6. `picture.hookGender` required, independent from VO.
 7. Line 3 must not fully resolve the pain (open loop). Ep1–3 are grandfathered.
+8. VO Korean lint (skill). Ep1–3 are grandfathered.
 
 ## Paste shape (script field only)
 
