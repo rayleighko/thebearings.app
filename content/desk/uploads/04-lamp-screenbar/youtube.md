@@ -6,11 +6,11 @@ SoT: `script.json` → `pnpm desk:print-script -- --file=content/desk/uploads/04
 
 ## 제목
 
-밤에 천장 불만 켜 놓고 일해요?
+밤에 천장 불만 켜요?
 
 ## 설명
 
-[광고] 밤에 천장 불만 켜 놓으면 화면이 눈부셔요. 스크린바.
+[광고] 밤에 천장 불만 켜면 화면이 눈부셔요. 스크린바.
 
 링크는 여기
 https://link.coupang.com/a/gi7YPbNxdY
