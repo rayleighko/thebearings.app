@@ -6,11 +6,11 @@ SoT: `script.json` → `pnpm desk:print-script -- --file=content/desk/uploads/04
 
 ## 제목
 
-모니터 받침대 썼어요?
+모니터 밑에 받침대 넣었어요?
 
 ## 설명
 
-[광고] 모니터 받침대로 높이면 앞은 그대로다. 싱글 모니터암.
+[광고] 모니터 밑에 받침대 넣으면 고개는 그대로 숙여져요. 싱글 모니터암.
 
 링크는 여기
 https://link.coupang.com/a/gi6GpRFFBI
