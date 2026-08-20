@@ -23,9 +23,9 @@ Do not skip `vo.gender` or `picture.hookGender`. Never put pause tokens in the p
 | On-screen `[광고]` | never |
 | Caption / sticker | One 9:16 master. Captions sit 720px from the bottom; SKU sticker 800px. Clears Naver Shopping Connect product card + YouTube Shorts chrome. Do **not** export a second ratio or a Naver-only cut. |
 | Logo / AE sting | never (before ep 6) |
-| CTA | Shipped ep1–3: `링크는 댓글에 있어요.` Next ep: `프로필에 책상 목록 있어요.` YouTube Shorts description/comment URLs are **not clickable** (Help). Profile URL = `https://desk.thebearings.app` (link title: 책상 물건). Never say `/dev`. Naver click surface = Shopping Connect card. Keep Coupang URL in YT description for disclosure. Never mix Coupang + Naver checkout in one video. |
+| CTA | VO last line is YouTube-facing (`프로필에 책상 목록 있어요.`). Ep1–3 shipped — do not recut. YouTube: comments on, **do not pin**. Coupang URL in YT **description** only. **Naver: do not say 프로필 / 책상 목록 / 링크는 여기.** Click = Shopping Connect **card** (same SKU as the sticker). No Naver comment. Never mix Coupang + Naver checkout. |
 | YouTube link | `youtube.productUrl` Coupang deeplink |
-| Naver link | Brand Connect / Shopping Connect attach + the same `naver.me` in the Clip comment |
+| Naver link | Clip app: **title + Shopping Connect card only** (no description field). Search-shaped title. No 프로필/목록. No comment. Same SKU as the sticker. |
 | `youtube.category` | `노하우 및 스타일` |
 | `youtube.language` | `한국어` |
 | `youtube.playlist` | `데스크` |
@@ -91,7 +91,7 @@ AI 느낌의 큰 축은 대본만이 아니라 **Pexels + Typecast**다. 다음 
 
 No `<|0.2s|>`, no `[0.2s]`. Settings stay outside the paste.
 
-`pnpm desk:print-script` also prints the YouTube Studio block (제목·설명·태그·카테고리·언어·재생목록·아동용 아님·유료 광고·댓글·좋아요·썸네일·고정 댓글). Description always starts with `[광고]`. Never `go.thebearings.app`.
+`pnpm desk:print-script` also prints the YouTube Studio block. Description always starts with `[광고]` and keeps the Coupang URL there. Do not pin a comment. Never `go.thebearings.app`.
 
 ## Example
 

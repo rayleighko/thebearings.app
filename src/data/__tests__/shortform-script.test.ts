@@ -60,5 +60,8 @@ describe('shortform script pipeline', () => {
     expect(block).toContain('유료 광고 포함: 켜기');
     expect(block).toContain('시청자: 아동용 아님');
     expect(block).not.toContain('go.thebearings.app');
+    const pinned = block.split('고정 댓글:')[1] ?? '';
+    expect(pinned).toContain('하지 말 것');
+    expect(pinned).not.toContain('link.coupang.com');
   });
 });
