@@ -54,9 +54,8 @@ Ban on-camera: 공포 과장, 가짜 리뷰, 진화심리 설명, 최저가. 신
 
 ## VO Korean lint (before lock)
 
-Do not install `snflkd/fluent-korean` as a Cursor plugin. That repo is a **Claude Code output-style**. For this channel, lint the four VO lines only.
-
-Source (MIT): https://github.com/snflkd/fluent-korean — `plugins/fluent-korean/output-styles/fluent-korean-not-coding.md`
+Read `.cursor/skills/fluent-korean/SKILL.md` (Cursor port of snflkd/fluent-korean, MIT).
+Open the reference file it points at. Do **not** install the Claude Code `/plugin` commands in Cursor.
 
 Spoken 9s 해요체 is the register. Do **not** expand into complete 문어 보고체. After writing four lines, check:
 
