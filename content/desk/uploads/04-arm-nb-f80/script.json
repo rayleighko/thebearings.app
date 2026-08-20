@@ -1,0 +1,47 @@
+{
+  "episode": 4,
+  "sku": "arm-nb-f80",
+  "title": "모니터 받침대 썼어요?",
+  "durationSec": 10,
+  "vo": {
+    "gender": "female",
+    "actor": "예슬",
+    "language": "kor",
+    "speed": 1,
+    "emotion": "normal",
+    "pauseSec": 0.2,
+    "register": "해요체",
+    "lines": [
+      "모니터 받침대 썼어요?",
+      "위만 올라가고 고개는 앞으로예요.",
+      "싱글 모니터암이 그 높이예요. 다는 법은 목록에.",
+      "프로필에 책상 목록 있어요."
+    ]
+  },
+  "picture": {
+    "hookGender": "male",
+    "productFromSec": 5,
+    "notes": "첫 프레임 남성, 책/받침대 위 모니터. 1·2·3편 클립 재사용 금지. 5초부터 F80 스티커. 스탠드 히어로 컷 금지."
+  },
+  "youtube": {
+    "title": "모니터 받침대 썼어요?",
+    "descriptionLead": "모니터 받침대로 높이면 앞은 그대로다. 싱글 모니터암.",
+    "productUrl": "https://link.coupang.com/a/gi6GpRFFBI",
+    "tags": [
+      "모니터암",
+      "모니터받침대",
+      "거북목",
+      "데스크셋업",
+      "살까말까연구소"
+    ],
+    "hashtags": ["#모니터암", "#거북목", "#데스크셋업", "#shorts"],
+    "category": "노하우 및 스타일",
+    "language": "한국어",
+    "playlist": "데스크",
+    "madeForKids": false,
+    "paidPromotion": true,
+    "comments": "on",
+    "showLikeCount": true,
+    "thumbnail": "from-video"
+  }
+}
