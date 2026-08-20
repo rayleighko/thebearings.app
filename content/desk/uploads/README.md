@@ -10,7 +10,8 @@
 
 1. `01-arm-nb-f80/` — 1편 (올렸음)
 2. `02-arm-nb-f80/` — 올렸음 (유튜브·네이버)
-3. `03-lamp-screenbar/` — 올렸음 (유튜브·네이버). ep4는 지표 후. `docs/desk/GROK-HANDOFF.md` §10
+3. `03-lamp-screenbar/` — 올렸음 (유튜브·네이버)
+4. `04-arm-nb-f80/` — 다음 편. 대본 잠금. 렌더는 그록. CTA `프로필에 책상 목록 있어요.`
 
 한 편 폴더:
 
@@ -31,7 +32,7 @@ NN-sku/
 ## 공통
 
 - 화면 `[광고]` 없음. 고지는 설명란 첫 줄 `[광고]` 접두(+유튜브 유료 프로모션 체크)
-- 프로필 링크(선택): `https://desk.thebearings.app/dev`
+- 프로필 링크: `https://desk.thebearings.app` (제목 책상 물건). `/dev` 말하지 않음.
 - 자막 세이프존: 아래 720px / 스티커 800px (쇼핑 커넥트 카드 피함). 9:16 마스터 하나.
 - mp4는 git에 안 넣는다. 메타데이터(md, srt, json, 이 README)만 커밋한다
 - 회고 SoT: `docs/desk/retro-2026-08-18.md`
