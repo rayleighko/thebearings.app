@@ -82,8 +82,9 @@ export function formatYoutubeDescription(script: ShortformScript): string {
   ].join('\n');
 }
 
-export function formatYoutubePinnedComment(script: ShortformScript): string {
-  return ['링크는 여기', script.youtube.productUrl].join('\n');
+/** Shorts comments stay on. Do not pin — a pin is not a hook. */
+export function formatYoutubePinnedComment(_script: ShortformScript): string {
+  return '하지 말 것 (댓글은 켜 둠)';
 }
 
 /** YouTube Studio paste — title, description, tags, locked toggles. */
