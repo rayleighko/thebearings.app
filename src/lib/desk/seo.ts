@@ -73,6 +73,8 @@ export function buildDeskSitemap(
   ];
 
   for (const concept of listPublishedConcepts()) {
+    // `/dev` 308s to `/`. Do not emit a second shop URL.
+    if (concept.slug === 'dev') continue;
     entries.push({
       url: absoluteUrl(origin, deskConceptHref(hostHeader, concept.slug)),
       lastModified: now,

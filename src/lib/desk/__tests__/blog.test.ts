@@ -42,6 +42,23 @@ describe('desk blog markdown', () => {
     expect(getDeskBlogPost('missing')).toBeUndefined();
   });
 
+  it('ships one indexable search post without 스크린바 H1 or 추천', () => {
+    const post = getDeskBlogPost('모니터-조명-천장불');
+    expect(post?.indexable).toBe(true);
+    expect(post?.date).toBe('2026-08-21');
+    expect(post?.title).toContain('천장 불');
+    expect(post?.title).not.toContain('스크린바');
+    expect(post?.description).toContain('모니터 조명');
+    expect(post?.body.startsWith('[광고]')).toBe(true);
+    expect(post?.body).toContain('책상 물건');
+    expect(post?.body).toContain('](/)');
+    expect(post?.body).not.toContain('추천');
+    expect(post?.body).not.toContain('별점');
+    expect(listIndexableDeskBlogPosts().some((row) => row.slug === '모니터-조명-천장불')).toBe(
+      true,
+    );
+  });
+
   it('honors index: false in frontmatter', () => {
     const post = parseDeskBlogMarkdown(`---
 slug: later

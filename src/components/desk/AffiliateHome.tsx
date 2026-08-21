@@ -25,14 +25,14 @@ export function AffiliateHome({ host }: AffiliateHomeProps) {
       <h1 className="mt-8 text-2xl font-semibold">{DESK_BRAND_NAME}</h1>
       <p className="mt-4 text-base text-cohort-ink-70">{DESK_ABOUT}</p>
       <p className="mt-3 text-base text-cohort-ink-70">
-        물건 목록은 책상 호스트에 있습니다. 후기 글은 아직 없습니다.
+        물건 목록은 책상 호스트에 있습니다. 후기나 순위 글은 없습니다.
       </p>
       <div className="mt-8 flex flex-col gap-3">
         <Link href={shopHref} className={CTA_CLASS}>
           책상 물건
         </Link>
         <Link href={blogHref} className={`${CTA_CLASS} text-cohort-ink-70`}>
-          글 (준비 중)
+          글
         </Link>
       </div>
     </DeskChrome>

@@ -13,8 +13,9 @@ describe('host-aware sitemap', () => {
   it('lists only desk public URLs on desk.thebearings.app', () => {
     const urls = buildSitemapForHost('desk.thebearings.app').map((row) => row.url);
     expect(urls).toContain('https://desk.thebearings.app/');
-    expect(urls).toContain('https://desk.thebearings.app/dev');
+    expect(urls).not.toContain('https://desk.thebearings.app/dev');
     expect(urls).toContain('https://desk.thebearings.app/blog');
+    expect(urls).toContain('https://desk.thebearings.app/blog/모니터-조명-천장불');
     expect(urls).not.toContain('https://desk.thebearings.app/blog/preparing');
     expect(urls.every((url) => !url.includes('?'))).toBe(true);
     expect(urls.every((url) => !url.includes('go.thebearings.app'))).toBe(true);
@@ -24,8 +25,11 @@ describe('host-aware sitemap', () => {
   it('uses /desk paths on preview hosts', () => {
     const urls = buildSitemapForHost('thebearings-app-abc.vercel.app').map((row) => row.url);
     expect(urls).toContain('https://thebearings-app-abc.vercel.app/desk');
-    expect(urls).toContain('https://thebearings-app-abc.vercel.app/desk/dev');
+    expect(urls).not.toContain('https://thebearings-app-abc.vercel.app/desk/dev');
     expect(urls).toContain('https://thebearings-app-abc.vercel.app/desk/blog');
+    expect(urls).toContain(
+      'https://thebearings-app-abc.vercel.app/desk/blog/모니터-조명-천장불',
+    );
   });
 
   it('returns no go URLs', () => {
