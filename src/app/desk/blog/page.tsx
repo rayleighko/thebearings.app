@@ -9,7 +9,7 @@ import { deskBlogPostHref, deskChromeHrefs } from '@/lib/desk/urls';
 export const metadata: Metadata = {
   title: { absolute: '글 — 살까말까 연구소' },
   description:
-    '살까말까 연구소 글. 지금은 준비 중입니다. 책상 물건은 목록에서 볼 수 있습니다.',
+    '살까말까 연구소 글. 후기나 순위는 없습니다. 책상 물건은 목록에서 볼 수 있습니다.',
   alternates: { canonical: '/blog' },
 };
 
@@ -23,7 +23,7 @@ export default async function DeskBlogIndexPage() {
       <h1 className="mt-8 text-2xl font-semibold">글</h1>
       <p className="mt-4 text-base text-cohort-ink-70">{DESK_ABOUT}</p>
       <p className="mt-3 text-base text-cohort-ink-70">
-        후기는 아직 없습니다. 물건이 실제로 팔린 뒤에 글을 올립니다.
+        후기나 순위는 없습니다. 결정 한 줄만 적습니다.
       </p>
       {posts.length === 0 ? (
         <p className="mt-6 rounded-xl border border-dashed border-cohort-ink-10 bg-white px-4 py-3 text-sm text-cohort-ink-70">

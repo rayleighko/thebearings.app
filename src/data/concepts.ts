@@ -196,6 +196,7 @@ export function getSlugTarget(slug: string): SlugTarget | undefined {
   return SLUG_TARGETS[slug];
 }
 
+/** Concepts with cards. `dev` is the shop catalog; its public URL is `/`, not `/dev`. */
 export function listPublishedConcepts(): Concept[] {
   return CONCEPTS.filter((c) => c.items.length > 0);
 }
